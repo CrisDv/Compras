@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "634273181963",
+    "firebase_url": "https://presupuesto-compra.firebaseio.com",
+    "project_id": "presupuesto-compra",
+    "storage_bucket": "presupuesto-compra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:634273181963:android:5795034053cf681388320e",
+        "android_client_info": {
+          "package_name": "udproject.compras"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "634273181963-h6pfhqfiq3p0a0ubclm961b0m9cuhbch.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "udproject.compras",
+            "certificate_hash": "9cdb290623d1799781bf8d128b42e203aaca4bee"
+          }
+        },
+        {
+          "client_id": "634273181963-4le3f9loctb7473iescruktb7jiucbji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdXJK_IRjKInjxbHpSnsOTj1kFd2ZzHmc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "634273181963-4le3f9loctb7473iescruktb7jiucbji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
