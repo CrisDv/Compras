@@ -48,6 +48,8 @@ public class LocalDB extends SQLiteOpenHelper {
 
     public LocalDB(Context context) {
         super(context, Nombre_BD, null, Version_BD);
+
+        this.context=context;
     }
 
     @Override
@@ -56,12 +58,39 @@ public class LocalDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TABLA_PRODUCTO);
         sqLiteDatabase.execSQL(TABLA_HISTORIAL);
 
+        System.out.println("CREAC");
+
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (3, 'CAFE', 2000, 'UN CAFECITO')");
+
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (4, 'CAFE2', 2000, 'UN CAFECITO')");
+
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (5, 'CAFE3', 2000, 'UN CAFECITO')");
+
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (6, 'CAFE4', 2000, 'UN CAFECITO')");
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (7, 'CAFE5', 2000, 'UN CAFECITO')");
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (8, 'CAFE6', 2000, 'UN CAFECITO')");
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (9, 'CAFE7', 2000, 'UN CAFECITO')");
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (10, 'CAFE8', 2000, 'UN CAFECITO')");
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (11, 'CAFE9', 2000, 'UN CAFECITO')");
+
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLA_LISTA);
         sqLiteDatabase.execSQL(TABLA_LISTA);
+
         onCreate(sqLiteDatabase);
     }
 

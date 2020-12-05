@@ -19,24 +19,24 @@ import udproject.compras.R;
 public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProductAdapter.ViewHolder> {
 
     OnProductListener mProductListener;
-    public boolean showShimmer;
-    int SHIMMER_ITEMS=7;
+    /*public boolean showShimmer;
+    int SHIMMER_ITEMS=7;*/
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        private TextView Nombre, Precio, Cantidad;
+        private TextView Nombre, Precio, Descripcion;
         private Button Sumar, Restar;
 
         OnProductListener productListener;
 
-        ShimmerFrameLayout shimmerFrame;
+        //ShimmerFrameLayout shimmerFrame;
         public ViewHolder(View itemView, OnProductListener productListener)
         {
             super(itemView);
-            shimmerFrame=itemView.findViewById(R.id.ShimmerItemProducto);
+            //shimmerFrame=itemView.findViewById(R.id.ShimmerItemProducto);
             Nombre=itemView.findViewById(R.id.TituloProducto);
             Precio=itemView.findViewById(R.id.PrecioProducto);
-            Cantidad=itemView.findViewById(R.id.CantidadProducto);
+            Descripcion=itemView.findViewById(R.id.CantidadProducto);
         }
         @Override
         public void onClick(View view) {
@@ -63,6 +63,11 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+           // holder.shimmerFrame.stopShimmer();
+            holder.Nombre.setText(productoList.get(position).getNombre());
+            holder.Descripcion.setText(productoList.get(position).getDescripcion());
+            holder.Precio.setText(Integer.toString(productoList.get(position).getPrecio()));
+
     }
 
     public interface OnProductListener
@@ -73,6 +78,7 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
     @Override
     public int getItemCount() {
 
-        return showShimmer ? SHIMMER_ITEMS:productoList.size(); //Primero carga los items (SHIMMER) y luego la lista
+        return productoList.size(); //Primero carga los items (SHIMMER) y luego la lista
     }
 }
+

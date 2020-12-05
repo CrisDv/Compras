@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/botonAgregarPresupuesto"
         android:layout_below="@+id/BotonesAgregar"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="6dp"
         android:layout_marginBottom="18dp"
         android:orientation="vertical">
 

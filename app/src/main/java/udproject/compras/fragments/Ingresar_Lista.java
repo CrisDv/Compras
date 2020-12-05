@@ -45,6 +45,7 @@ public class Ingresar_Lista extends Fragment implements RecyclerProductAdapter.O
         AdaptadorProducto = new RecyclerProductAdapter(local.ListaProducto(),this);
         RecyclerItemProductos.setAdapter(AdaptadorProducto);
 
+
         return view;
 
 
@@ -54,7 +55,7 @@ public class Ingresar_Lista extends Fragment implements RecyclerProductAdapter.O
 
     @Override
     public void onProductClick(int posicion) {
-
+        Toast.makeText(getContext(), "HOLA "+Integer.toString(posicion), Toast.LENGTH_LONG).show();
     }
 
 }
