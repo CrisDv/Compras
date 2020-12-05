@@ -69,7 +69,7 @@ class CameraScanner : AppCompatActivity() {
         // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-        // Set up image capture listener, which is triggered after photo has
+        // Set up image capture listener, which is triggered after photo hasx
         // been taken
         imageCapture.takePicture(
                 outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
