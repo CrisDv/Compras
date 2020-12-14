@@ -32,9 +32,9 @@ public class LocalDB extends SQLiteOpenHelper {
     private static  final String TABLA_PRODUCTO ="CREATE TABLE Productos" +
             "(" +
             "    Id_Producto INT PRIMARY KEY NOT NULL," +
-            "    Name_Producto VARCHAR(15) NOT NULL," +
+            "    Name_Producto VARCHAR(50) NOT NULL," +
             "    Precio_Producto INT NOT NULL," +
-            "    Descripcion_Producto varchar (20) NOT NULL" +
+            "    Descripcion_Producto varchar (50) NOT NULL" +
             ");";
 
     private static final String TABLA_HISTORIAL="CREATE TABLE Historial" +
@@ -55,6 +55,9 @@ public class LocalDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TABLA_LISTA);
         sqLiteDatabase.execSQL(TABLA_PRODUCTO);
         sqLiteDatabase.execSQL(TABLA_HISTORIAL);
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
+                "VALUES (3, 'CAFE', 2000, 'UN CAFECITO')");
+
 
     }
 
