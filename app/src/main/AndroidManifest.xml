@@ -18,11 +18,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".FrDialog.IngresarPorTexto"></activity>
+        <activity android:name=".Recognition.Voice"></activity>
+        <activity android:name=".FrDialog.IngresarPorTexto" />
         <activity android:name=".Login" />
         <activity android:name=".FrDialog.FragmentDialogPresupuesto" />
         <activity
-            android:name=".CameraScanner"
+            android:name=".Recognition.CameraScanner"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_camera_scanner"
             android:theme="@style/FullscreenTheme" />

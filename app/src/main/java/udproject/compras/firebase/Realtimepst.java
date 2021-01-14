@@ -9,17 +9,21 @@ public class Realtimepst {
 
     DatabaseReference mDBReference;
 
-    public void SubirA()
+    public void CrearUsuario()
     {
         mDBReference= FirebaseDatabase.getInstance().getReference();
         FirebaseAuth ma=FirebaseAuth.getInstance();
-
-        mDBReference.child("A").child("user").setValue(ma.getCurrentUser().getEmail());
+/*
+        mDBReference.child(ma.getCurrentUser().getEmail()).child("user").setValue(ma.getCurrentUser().getEmail());
         mDBReference.child("A").child("xde").setValue(ma.getCurrentUser().getEmail());
         mDBReference.child("A").child("dee").setValue(ma.getCurrentUser().getEmail());
-        mDBReference.child("A").child("ee").setValue(ma.getCurrentUser().getEmail());
+        mDBReference.child("A").child("ee").setValue(ma.getCurrentUser().getEmail());*/
 
+        mDBReference.child("Users").child(ma.getCurrentUser().getUid()).child("nombre").setValue(ma.getCurrentUser().getDisplayName());
+        mDBReference.child("Users").child(ma.getCurrentUser().getUid()).child("Mail").setValue(ma.getCurrentUser().getEmail());
 
+        
+        //mDBReference.child("Users").child(ma.getCurrentUser().getUid()).child("Cantidad De Listas").setValue(0);
     }
 
 }

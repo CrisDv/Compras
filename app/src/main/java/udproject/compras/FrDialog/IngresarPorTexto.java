@@ -20,6 +20,7 @@ import android.widget.Toast;
 import udproject.compras.R;
 import udproject.compras.firebase.LocalDB;
 import udproject.compras.fragments.Ingresar_Lista;
+import udproject.compras.recycler.RecyclerProductAdapter;
 
     public class IngresarPorTexto extends DialogFragment {
 

@@ -10,29 +10,32 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.api.OptionalPendingResult;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import udproject.compras.CameraScanner;
+import de.hdodenhof.circleimageview.CircleImageView;
 import udproject.compras.Login;
 import udproject.compras.R;
+import udproject.compras.firebase.Realtimepst;
 
 public class CuentaFragment extends Fragment {
 
     View view;
     Button logg;
     private FirebaseAuth mAuth;
-    TextView Cuentatext;
+    TextView Mail, Nombre, Compras;
+    CircleImageView imgProfile;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState)
     {
         view=inflater.inflate(R.layout.fragment_cuenta, container, false);
 
         logg=view.findViewById(R.id.loguear);
-        Cuentatext=view.findViewById(R.id.text_notifications);
+        Mail=view.findViewById(R.id.MailUser);
+        Nombre=view.findViewById(R.id.NameUser);
+        imgProfile=view.findViewById(R.id.ProfileImg);
+
         logg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,12 +59,16 @@ public class CuentaFragment extends Fragment {
         else
         {
             logg.setVisibility(View.INVISIBLE);
-            Cuentatext.setText(currentuser.getEmail());
+            UpdateUI(currentuser);
         }
     }
 
-    private void UpdateUI()
+    private void UpdateUI(FirebaseUser user)
     {
-
+        Glide.with(view).load(user.getPhotoUrl()).into(imgProfile);
+        Nombre.setText(user.getDisplayName());
+        Mail.setText(user.getEmail());
+        Realtimepst rs=new Realtimepst();
+        rs.CrearUsuario();
     }
 }

@@ -1,6 +1,5 @@
 package udproject.compras.mainfragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import udproject.compras.CameraScanner;
 import udproject.compras.R;
 import udproject.compras.firebase.LocalDB;
 

@@ -48,6 +48,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
     //UI
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
     // CameraX core library using camera2 implementation
     implementation "androidx.camera:camera-camera2:1.0.0-beta07"
 // CameraX Lifecycle Library

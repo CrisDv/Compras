@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
+
 
 import java.util.List;
 
@@ -25,14 +25,14 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
     {
         private TextView TituloItem, ListaPrecioTotal, ProductosEnTotal;
 
-        ShimmerFrameLayout shimmerFrameLayout;
+        //ShimmerFrameLayout shimmerFrameLayout;
 
         OnItemGuardadoListener onItemListener;
 
         public ViewHolder(View itemView, OnItemGuardadoListener onItemListener)
         {
             super(itemView);
-            shimmerFrameLayout=itemView.findViewById(R.id.shimerItemHistorial);
+          //  shimmerFrameLayout=itemView.findViewById(R.id.shimerItemHistorial);
             TituloItem=itemView.findViewById(R.id.TituloItemHistorial);
             ProductosEnTotal=itemView.findViewById(R.id.ProductosTotal);
             ListaPrecioTotal=itemView.findViewById(R.id.PrecioTotalLista);
@@ -79,6 +79,6 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
 
     @Override
     public int getItemCount() {
-        return 0;
+        return ItemHistorialList.size();
     }
 }

@@ -12,14 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import udproject.compras.Adapters.Item_Producto;
-import udproject.compras.CameraScanner;
-import udproject.compras.FrDialog.FragmentDialogPresupuesto;
+import udproject.compras.Recognition.CameraScanner;
 import udproject.compras.FrDialog.IngresarPorTexto;
 import udproject.compras.R;
 import udproject.compras.firebase.LocalDB;
@@ -41,9 +39,9 @@ public class Ingresar_Lista extends Fragment implements RecyclerProductAdapter.O
         RecyclerItemProductos=view.findViewById(R.id.RecyclerProductos);
         RecyclerItemProductos.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        LocalDB local=new LocalDB(getContext());
+        LocalDB local=new LocalDB(getActivity());
         AdaptadorProducto = new RecyclerProductAdapter(local.ListaProducto(),this);
-        RecyclerItemProductos.setAdapter(AdaptadorProducto);
+
 
 
         Button xde=view.findViewById(R.id.IngresarTexto);
@@ -55,9 +53,16 @@ public class Ingresar_Lista extends Fragment implements RecyclerProductAdapter.O
             }
         });
 
+        Button Scanner=view.findViewById(R.id.IngresarScanner);
+        Scanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CameraScanner.class);
+                startActivity(intent);
+            }
+        });
+        RecyclerItemProductos.setAdapter(AdaptadorProducto);
         return view;
-
-        /*COMMIT*/
     }
 
 
@@ -68,6 +73,8 @@ public class Ingresar_Lista extends Fragment implements RecyclerProductAdapter.O
 
     public void crearItem()
     {
-        AdaptadorProducto.notifyItemInserted(productoList.size()+1);
+        AdaptadorProducto.notifyItemInserted(productoList.size()-1);
+        AdaptadorProducto.notifyItemRangeChanged(productoList.size(), productoList.size()-1);
     }
+
 }

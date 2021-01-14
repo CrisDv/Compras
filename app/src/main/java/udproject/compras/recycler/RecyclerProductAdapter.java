@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
-
 import java.util.List;
 
 import udproject.compras.Adapters.Item_Producto;
@@ -68,7 +66,6 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
         holder.Descripcion.setText(productoList.get(position).getDescripcion());
         holder.Precio.setText(Integer.toString(productoList.get(position).getPrecio()));
 
-        
     }
 
     public interface OnProductListener
