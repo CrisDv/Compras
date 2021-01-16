@@ -5,7 +5,9 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import udproject.compras.R;
 import udproject.compras.conversion;
+import udproject.compras.mainfragments.HomeFragment;
 
 public class FragmentDialogPresupuesto extends DialogFragment {
 
@@ -42,11 +45,14 @@ public class FragmentDialogPresupuesto extends DialogFragment {
                         String Valor=Cant.getText().toString();
                         if (Cant.getText().toString().equals(" "))
                         {
-                            TextPresupuesto.setText("TU PRESUPUESTO");
+                            TextPresupuesto.setText(" ");
                         }
                         else
                         {
                             textChange(TextPresupuesto, Valor);
+
+                            HomeFragment hom=new HomeFragment();
+                            hom.CrearLista(Valor);
                         }
                     }
                 })
@@ -61,7 +67,7 @@ public class FragmentDialogPresupuesto extends DialogFragment {
     {
         try {
             conversion con=new conversion();
-            txtPresupuesto.setText("Tu presupuesto actual: $"+con.SeparadorFormat(TotalIngresado));
+            txtPresupuesto.setText("Presupuesto: $"+con.SeparadorFormat(TotalIngresado));
         }
         catch (Exception ex)
         {

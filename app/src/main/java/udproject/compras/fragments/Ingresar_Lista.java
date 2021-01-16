@@ -17,17 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import udproject.compras.Adapters.Item_Producto;
+import udproject.compras.FrDialog.FragmentDialogPresupuesto;
 import udproject.compras.Recognition.CameraScanner;
 import udproject.compras.FrDialog.IngresarPorTexto;
 import udproject.compras.R;
 import udproject.compras.firebase.LocalDB;
 import udproject.compras.recycler.RecyclerProductAdapter;
 
-public class Ingresar_Lista extends Fragment implements RecyclerProductAdapter.OnProductListener{
+public class Ingresar_Lista extends Fragment implements View.OnClickListener {
 
-    private RecyclerView RecyclerItemProductos;
-    private RecyclerProductAdapter AdaptadorProducto;
-    List<Item_Producto> productoList=new ArrayList<>();
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,14 +33,6 @@ public class Ingresar_Lista extends Fragment implements RecyclerProductAdapter.O
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_ingresar__lista, container, false);
-
-        RecyclerItemProductos=view.findViewById(R.id.RecyclerProductos);
-        RecyclerItemProductos.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        LocalDB local=new LocalDB(getActivity());
-        AdaptadorProducto = new RecyclerProductAdapter(local.ListaProducto(),this);
-
-
 
         Button xde=view.findViewById(R.id.IngresarTexto);
         xde.setOnClickListener(new View.OnClickListener() {
@@ -61,20 +51,13 @@ public class Ingresar_Lista extends Fragment implements RecyclerProductAdapter.O
                 startActivity(intent);
             }
         });
-        RecyclerItemProductos.setAdapter(AdaptadorProducto);
+
         return view;
     }
 
 
     @Override
-    public void onProductClick(int posicion) {
+    public void onClick(View v) {
 
     }
-
-    public void crearItem()
-    {
-        AdaptadorProducto.notifyItemInserted(productoList.size()-1);
-        AdaptadorProducto.notifyItemRangeChanged(productoList.size(), productoList.size()-1);
-    }
-
 }

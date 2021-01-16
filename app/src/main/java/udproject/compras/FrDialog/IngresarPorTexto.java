@@ -66,10 +66,10 @@ import udproject.compras.recycler.RecyclerProductAdapter;
 
         try {
 
-            localDB.AgregarProducto(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), Cantidad.getText().toString());
+            localDB.AgregarProducto(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), Integer.parseInt(Cantidad.getText().toString()));
             Toast.makeText(getContext(), Nombre.getText().toString()+" bruh "+Precio.getText().toString()+" "+Cantidad.getText().toString(), Toast.LENGTH_LONG).show();
             Ingresar_Lista ig=new Ingresar_Lista();
-            ig.crearItem();
+            //ig.crearItem();
         }
         catch (Exception e)
         {

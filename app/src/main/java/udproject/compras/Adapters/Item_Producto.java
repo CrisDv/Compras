@@ -1,14 +1,14 @@
 package udproject.compras.Adapters;
 
 public class Item_Producto {
-    String Nombre, Descripcion;
-    int ID, Precio;
+    String Nombre;
+    int ID, Precio, Cantidad;
 
-    public Item_Producto(int ID, String Nombre, int Precio, String Descripcion)
+    public Item_Producto(int ID, String Nombre, int Precio, int Cantidad)
     {
         this.ID=ID;
         this.Nombre=Nombre;
-        this.Descripcion=Descripcion;
+        this.Cantidad=Cantidad;
         this.Precio=Precio;
     }
 
@@ -25,14 +25,6 @@ public class Item_Producto {
         Nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return Descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
-    }
-
     public int getID() {
         return ID;
     }
@@ -47,5 +39,13 @@ public class Item_Producto {
 
     public void setPrecio(int precio) {
         Precio = precio;
+    }
+
+    public int getCantidad() {
+        return Cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        Cantidad = cantidad;
     }
 }

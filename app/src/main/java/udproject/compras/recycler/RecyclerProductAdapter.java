@@ -22,7 +22,7 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        private TextView Nombre, Precio, Descripcion;
+        private TextView Nombre, Precio, Descripcion, Cantidad;
         private Button Sumar, Restar;
 
         OnProductListener productListener;
@@ -34,7 +34,7 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
             //shimmerFrame=itemView.findViewById(R.id.ShimmerItemProducto);
             Nombre=itemView.findViewById(R.id.TituloProducto);
             Precio=itemView.findViewById(R.id.PrecioProducto);
-            Descripcion=itemView.findViewById(R.id.CantidadProducto);
+            Cantidad=itemView.findViewById(R.id.CantidadProducto);
         }
         @Override
         public void onClick(View view) {
@@ -63,7 +63,7 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
 
         // holder.shimmerFrame.stopShimmer();
         holder.Nombre.setText(productoList.get(position).getNombre());
-        holder.Descripcion.setText(productoList.get(position).getDescripcion());
+        holder.Cantidad.setText(Integer.toString(productoList.get(position).getCantidad()));
         holder.Precio.setText(Integer.toString(productoList.get(position).getPrecio()));
 
     }

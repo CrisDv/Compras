@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import udproject.compras.Adapters.Item_Producto;
@@ -21,10 +22,10 @@ public class LocalDB extends SQLiteOpenHelper {
 
     private static final String TABLA_LISTA = " CREATE TABLE MiLista" +
             "(" +
-            "   Id_Lista INT PRIMARY KEY NOT NULL,"+
+            "   Id_Lista VARCHAR(40) PRIMARY KEY NOT NULL,"+
             "   Id_Producto INT,"+
-            "   PresupuestoInicial INT,"+
-            "   Name_Lista VARCHAR (15) NOT NULL," +
+            "   PresupuestoInicial INT NOT NULL,"+
+            "   Name_Lista VARCHAR (15)," +
             "   Fecha_Lista DATETIME NOT NULL," +
             "   FOREIGN KEY (Id_Producto) REFERENCES Productos(Id_Producto)"+
             ");";
@@ -34,13 +35,13 @@ public class LocalDB extends SQLiteOpenHelper {
             "    Id_Producto INT PRIMARY KEY NOT NULL," +
             "    Name_Producto VARCHAR(50) NOT NULL," +
             "    Precio_Producto INT NOT NULL," +
-            "    Descripcion_Producto varchar (50) NOT NULL" +
+            "    Cantidad INT NOT NULL"+
             ");";
 
     private static final String TABLA_HISTORIAL="CREATE TABLE Historial" +
             "("+
-            "    Id_Historial INT PRIMARY KEY NOT NULL," +
-            "    Id_Lista INT,"+
+            "    Id_Historial VARCHAR(40) PRIMARY KEY NOT NULL," +
+            "    Id_Lista VARCHAR(40),"+
             "    FOREIGN KEY (Id_Lista) REFERENCES MiLista(Id_Lista)"+
             ");";
 
@@ -48,6 +49,8 @@ public class LocalDB extends SQLiteOpenHelper {
 
     public LocalDB(Context context) {
         super(context, Nombre_BD, null, Version_BD);
+
+        this.context=context;
     }
 
     @Override
@@ -55,8 +58,8 @@ public class LocalDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TABLA_LISTA);
         sqLiteDatabase.execSQL(TABLA_PRODUCTO);
         sqLiteDatabase.execSQL(TABLA_HISTORIAL);
-        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto)" +
-                "VALUES (3, 'CAFE', 2000, 'UN CAFECITO')");
+        sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto,Cantidad)" +
+                "VALUES (3, 'CAFE', 2000, 8)");
 
 
     }
@@ -68,12 +71,12 @@ public class LocalDB extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void AgregarProducto(int id_product, String Nombre, int Precio, String Descripcion)
+    public void AgregarProducto(int id_product, String Nombre, int Precio, int Cantidad)
     {
         SQLiteDatabase BDAgregar=getWritableDatabase();
         if (BDAgregar!=null)
         {
-            BDAgregar.execSQL("INSERT INTO Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto) VALUES ("+id_product+",' "+Nombre+"', "+Precio+", '"+Descripcion+"');");
+            BDAgregar.execSQL("INSERT INTO Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto) VALUES ("+id_product+",' "+Nombre+"', "+Precio+", '"+Cantidad +"');");
 
             BDAgregar.close();
         }
@@ -90,7 +93,7 @@ public class LocalDB extends SQLiteOpenHelper {
         if (cr.moveToFirst())
         {
             do {
-                productoList.add(new Item_Producto(cr.getInt(0), cr.getString(1), cr.getInt(2), cr.getString(3)));
+                productoList.add(new Item_Producto(cr.getInt(0), cr.getString(1), cr.getInt(2), cr.getInt(3)));
             }while (cr.moveToNext());
         }
 
@@ -101,9 +104,20 @@ public class LocalDB extends SQLiteOpenHelper {
     public boolean ifExist()
     {
         SQLiteDatabase bdCheck=getReadableDatabase();
-        Cursor cr=bdCheck.rawQuery("SELECT Id_Lista from MiLista;", null);
+        Cursor cr=bdCheck.rawQuery("SELECT Id_Historial from Historial;", null);
 
         return cr.moveToFirst();
 
+    }
+
+    public void AgregarALista(String IDLista, int Presupuesto, String IDhistorial){
+
+        SQLiteDatabase BDCrear=getWritableDatabase();
+        Date thisDate=new Date();
+        if (BDCrear!=null){
+            BDCrear.execSQL("INSERT INTO MiLista (Id_Lista, PresupuestoInicial, Fecha_Lista) VALUES ('"+IDLista+"', "+Presupuesto+", '"+IDhistorial+"', "+thisDate+")");
+
+            BDCrear.close();
+        }
     }
 }

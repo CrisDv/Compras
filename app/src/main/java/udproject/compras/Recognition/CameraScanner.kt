@@ -11,6 +11,7 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.vision.barcode.BarcodeDetector
 import kotlinx.android.synthetic.main.activity_camera_scanner.*
 import udproject.compras.R
 import java.io.File
@@ -155,6 +156,11 @@ class CameraScanner : AppCompatActivity() {
         override fun analyze(image: ImageProxy) {
             TODO("Not yet implemented")
         }
+
+    }
+
+    fun QR()
+    {
 
     }
 }

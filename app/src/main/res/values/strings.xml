@@ -7,7 +7,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="ACEPTAR">ACEPTAR</string>
-    <string name="CANCELAR">CANCELAR</string>
+    <string name="CANCELAR">Ya tengo una lista</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="crea_una_nueva_lista_por">CREA UNA NUEVA LISTA POR:</string>

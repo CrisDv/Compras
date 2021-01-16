@@ -39,7 +39,7 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
         getSupportActionBar();
 
         FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.nav_host_HOME, new Ingresar_Lista()).commit();
+        fragmentManager.beginTransaction().replace(R.id.nav_host_HOME, new HomeFragment()).commit();
     }
 
     @Override

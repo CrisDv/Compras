@@ -1,35 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#fff"
     tools:context=".mainfragments.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <RelativeLayout
+        android:id="@+id/Recycler1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="HOME"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/botonAgregarPresupuesto"
+        android:layout_below="@+id/BotonesAgregar"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="18dp"
+        android:orientation="vertical">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/camera_FAB"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerProductos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:scrollbars="vertical" />
+        <Button
+            android:id="@+id/CrearLista"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_above="@+id/ListaYaCreada"
+            android:layout_gravity="center"
+            android:layout_marginBottom="12dp"
+            android:text="CREAR LISTA" />
+
+        <Button
+            android:id="@+id/ListaYaCreada"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="308dp"
+            android:text="USAR LISTA YA CREADA" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/FLOAT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="73dp">
 
-        android:src="@drawable/ic_baseline_camera_enhance_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/IngresarPorScanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/IngresarPorVoz"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="6dp"
+            android:visibility="invisible"
+            android:src="@drawable/ic_baseline_camera_enhance_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/IngresarPorVoz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/IngresarPorTexto"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="6dp"
+            android:visibility="invisible"
+            android:src="@drawable/ic_baseline_mic_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/IngresarPorTexto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/EscogerMetodo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="6dp"
+            android:clickable="true"
+            android:visibility="invisible"
+            android:src="@drawable/ic_baseline_text_fields_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/EscogerMetodo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:src="@drawable/ic_baseline_add_24" />
+    </RelativeLayout>
+</RelativeLayout>
