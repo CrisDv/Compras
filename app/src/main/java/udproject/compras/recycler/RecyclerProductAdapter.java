@@ -65,7 +65,6 @@ public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProduct
         holder.Nombre.setText(productoList.get(position).getNombre());
         holder.Cantidad.setText(Integer.toString(productoList.get(position).getCantidad()));
         holder.Precio.setText(Integer.toString(productoList.get(position).getPrecio()));
-
     }
 
     public interface OnProductListener

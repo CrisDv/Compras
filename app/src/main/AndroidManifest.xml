@@ -18,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Recognition.Voice"></activity>
+        <activity android:name=".Recognition.Voice" />
         <activity android:name=".FrDialog.IngresarPorTexto" />
         <activity android:name=".Login" />
-        <activity android:name=".FrDialog.FragmentDialogPresupuesto" />
+        <activity android:name=".FrDialog.IngresarPresupuesto" />
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".Recognition.CameraScanner"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -33,7 +34,7 @@
             android:value="ocr" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".CreacionLista"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

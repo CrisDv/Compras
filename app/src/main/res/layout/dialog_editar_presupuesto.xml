@@ -5,10 +5,10 @@
     android:orientation="vertical"
     android:layout_width="200dp"
     android:layout_height="wrap_content"
-    tools:context=".FrDialog.IngresarPresupuesto">
+    tools:context=".FrDialog.EditarPresupuesto">
 
     <TextView
-        android:text="ESCRIBE TU PRESUPUESTO"
+        android:text="Deseas modificar tu presupuesto? Escribelo aqui!"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -16,7 +16,7 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"/>
     <EditText
-        android:id="@+id/create_presupuesto"
+        android:id="@+id/edit_presupuesto"
         android:layout_width="match_parent"
         android:inputType="number"
         android:layout_height="50dp"

@@ -1,5 +1,7 @@
 package udproject.compras;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,9 +14,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import udproject.compras.fragments.Ingresar_Lista;
+import udproject.compras.FrDialog.EditarPresupuesto;
+import udproject.compras.FrDialog.IngresarPresupuesto;
 import udproject.compras.mainfragments.ListasFragment;
-import udproject.compras.FrDialog.FragmentDialogPresupuesto;
 import udproject.compras.mainfragments.HomeFragment;
 import udproject.compras.mainfragments.CuentaFragment;
 
@@ -53,9 +55,9 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cantidad_presupuesto:
-                /*Intent i=new Intent(this, FragmentDialogPresupuesto.class);
+                /*Intent i=new Intent(this, IngresarPresupuesto.class);
                 startActivity(i);*/
-                DialogFragment newFragment=new FragmentDialogPresupuesto();
+                DialogFragment newFragment=new EditarPresupuesto();
                 newFragment.show(getSupportFragmentManager(), "xde");
                 break;
         }
@@ -80,5 +82,22 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
 
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        SharedPreferences sharedPref =getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
+        String valor=sharedPref.getString("PresupeustoEditado", "NO HAY NADA");
+
+        System.out.println(valor+"a55555555555555555555555555555555555");
     }
 }

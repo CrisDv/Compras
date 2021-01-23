@@ -5,20 +5,21 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import udproject.compras.ConversionLetras;
+import udproject.compras.CreacionLista;
+import udproject.compras.MainActivity;
 import udproject.compras.R;
-import udproject.compras.conversion;
-import udproject.compras.mainfragments.HomeFragment;
+import udproject.compras.firebase.LocalDB;
 
-public class FragmentDialogPresupuesto extends DialogFragment {
+public class IngresarPresupuesto extends DialogFragment {
 
     View view;
     @Override
@@ -40,7 +41,7 @@ public class FragmentDialogPresupuesto extends DialogFragment {
                 .setPositiveButton(R.string.ACEPTAR, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText Cant=getDialog().findViewById(R.id.edit_presupuesto);
+                        EditText Cant=getDialog().findViewById(R.id.create_presupuesto);
                         TextView TextPresupuesto=getActivity().findViewById(R.id.cantidad_presupuesto);
                         String Valor=Cant.getText().toString();
                         if (Cant.getText().toString().equals(" "))
@@ -51,14 +52,20 @@ public class FragmentDialogPresupuesto extends DialogFragment {
                         {
                             textChange(TextPresupuesto, Valor);
 
-                            HomeFragment hom=new HomeFragment();
-                            hom.CrearLista(Valor);
+                            LocalDB local=new LocalDB(getActivity());
+                            local.AgregarALista(Integer.parseInt(Valor));
+
+                            CreacionLista creacionLista=new CreacionLista();
+                            Intent intent=new Intent(getContext(), MainActivity.class);
+                            startActivity(intent);
+
                         }
+
                     }
                 })
-                .setNegativeButton(R.string.CANCELAR, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.YaTengoUnaLista, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        FragmentDialogPresupuesto.this.getDialog().cancel();
+                        IngresarPresupuesto.this.getDialog().cancel();
                     }
                 });
         return builder.create();
@@ -66,7 +73,7 @@ public class FragmentDialogPresupuesto extends DialogFragment {
     private void textChange(TextView txtPresupuesto, String TotalIngresado)
     {
         try {
-            conversion con=new conversion();
+            ConversionLetras con=new ConversionLetras();
             txtPresupuesto.setText("Presupuesto: $"+con.SeparadorFormat(TotalIngresado));
         }
         catch (Exception ex)

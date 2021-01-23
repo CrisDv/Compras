@@ -1,24 +1,31 @@
 package udproject.compras.firebase;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+import androidx.core.database.sqlite.SQLiteDatabaseKt;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import udproject.compras.Adapters.Item_Producto;
+import udproject.compras.mainfragments.HomeFragment;
+
+import static android.content.Context.MODE_PRIVATE;
+import static androidx.camera.core.CameraX.getContext;
 
 public class LocalDB extends SQLiteOpenHelper {
 
-    private static final String Nombre_BD="BDLocal";
-    private static final int Version_BD=1;
+    private static final String Nombre_BD="BDLocalCOMPRA ";
+    private static final int Version_BD=2;
 
     private static final String TABLA_LISTA = " CREATE TABLE MiLista" +
             "(" +
@@ -45,6 +52,14 @@ public class LocalDB extends SQLiteOpenHelper {
             "    FOREIGN KEY (Id_Lista) REFERENCES MiLista(Id_Lista)"+
             ");";
 
+    private static final String TABLA_GUARDADA="CREATE TABLE ListaGuardada" +
+            "("+
+            "    Id_Guardada VARCHAR(40) PRIMARY KEY NOT NULL," +
+            "    Id_Lista VARCHAR(40),"+
+            "    Productos_Totales INT NOT NULL,"+
+            "    FOREIGN KEY (Id_Lista) REFERENCES MiLista(Id_Lista)"+
+            ");";
+
     private Context context;
 
     public LocalDB(Context context) {
@@ -58,6 +73,7 @@ public class LocalDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TABLA_LISTA);
         sqLiteDatabase.execSQL(TABLA_PRODUCTO);
         sqLiteDatabase.execSQL(TABLA_HISTORIAL);
+        sqLiteDatabase.execSQL(TABLA_GUARDADA);
         sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto,Cantidad)" +
                 "VALUES (3, 'CAFE', 2000, 8)");
 
@@ -76,17 +92,17 @@ public class LocalDB extends SQLiteOpenHelper {
         SQLiteDatabase BDAgregar=getWritableDatabase();
         if (BDAgregar!=null)
         {
-            BDAgregar.execSQL("INSERT INTO Productos (Id_Producto, Name_Producto, Precio_Producto, Descripcion_Producto) VALUES ("+id_product+",' "+Nombre+"', "+Precio+", '"+Cantidad +"');");
+            BDAgregar.execSQL("INSERT INTO Productos (Id_Producto, Name_Producto, Precio_Producto, Cantidad) VALUES ("+id_product+",' "+Nombre+"', "+Precio+", '"+Cantidad +"');");
 
             BDAgregar.close();
         }
     }
 
-    public List<Item_Producto> ListaProducto()
+    public List<Item_Producto> ListaProducto(String idLista)
     {
         SQLiteDatabase BDReadProducto=getReadableDatabase();
-
-        Cursor cr=BDReadProducto.rawQuery("SELECT * FROM Productos;", null);
+        Cursor cr=BDReadProducto.rawQuery("SELECT p.* FROM Productos p, MiLista ML WHERE ML.Id_Lista='"+idLista+"';", null);
+        //Cursor cr=BDReadProducto.rawQuery("SELECT p.* FROM Productos p, MiLista ML;", null);
         List<Item_Producto> productoList=new ArrayList<>();
 
 
@@ -104,20 +120,30 @@ public class LocalDB extends SQLiteOpenHelper {
     public boolean ifExist()
     {
         SQLiteDatabase bdCheck=getReadableDatabase();
-        Cursor cr=bdCheck.rawQuery("SELECT Id_Historial from Historial;", null);
-
-        return cr.moveToFirst();
+        Cursor cr=bdCheck.rawQuery("SELECT Id_Lista from MiLista;", null);
+        boolean is=cr.moveToFirst();
+        
+        bdCheck.close();
+        return is;
 
     }
 
-    public void AgregarALista(String IDLista, int Presupuesto, String IDhistorial){
+    public void AgregarALista(int Presupuesto){
+        String IDLista = UUID.randomUUID().toString();
+        String IDhistorial=UUID.randomUUID().toString();
+
+        SharedPreferences shared = context.getSharedPreferences("CREDENCIALES", MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+        editor.putString("IDlista", IDLista);
+        editor.commit();
 
         SQLiteDatabase BDCrear=getWritableDatabase();
         Date thisDate=new Date();
         if (BDCrear!=null){
-            BDCrear.execSQL("INSERT INTO MiLista (Id_Lista, PresupuestoInicial, Fecha_Lista) VALUES ('"+IDLista+"', "+Presupuesto+", '"+IDhistorial+"', "+thisDate+")");
+            BDCrear.execSQL("INSERT INTO MiLista (Id_Lista, PresupuestoInicial, Fecha_Lista) VALUES ('"+IDLista+"', "+Presupuesto+", '"+thisDate+"')");
 
             BDCrear.close();
         }
+        ifExist();
     }
 }
