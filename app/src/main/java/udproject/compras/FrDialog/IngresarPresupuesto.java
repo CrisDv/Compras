@@ -6,18 +6,22 @@ import androidx.fragment.app.DialogFragment;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import udproject.compras.ConversionLetras;
 import udproject.compras.CreacionLista;
 import udproject.compras.MainActivity;
 import udproject.compras.R;
 import udproject.compras.firebase.LocalDB;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class IngresarPresupuesto extends DialogFragment {
 
@@ -42,20 +46,24 @@ public class IngresarPresupuesto extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         EditText Cant=getDialog().findViewById(R.id.create_presupuesto);
-                        TextView TextPresupuesto=getActivity().findViewById(R.id.cantidad_presupuesto);
+                        //TextView TextPresupuesto=getActivity().findViewById(R.id.cantidad_presupuesto);
                         String Valor=Cant.getText().toString();
                         if (Cant.getText().toString().equals(" "))
                         {
-                            TextPresupuesto.setText(" ");
+                            //Toast.makeText(getActivity(), "INGRESA UN PRESUPUESTO VALIDO", Toast.LENGTH_LONG).show();
                         }
                         else
                         {
-                            textChange(TextPresupuesto, Valor);
+                            //textChange(TextPresupuesto, Valor);
+
+                            SharedPreferences shared = getActivity().getSharedPreferences("CREDENCIALES", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = shared.edit();
+                            editor.putString("Presupuesto", Valor);
+                            editor.commit();
 
                             LocalDB local=new LocalDB(getActivity());
                             local.AgregarALista(Integer.parseInt(Valor));
 
-                            CreacionLista creacionLista=new CreacionLista();
                             Intent intent=new Intent(getContext(), MainActivity.class);
                             startActivity(intent);
 
@@ -63,7 +71,7 @@ public class IngresarPresupuesto extends DialogFragment {
 
                     }
                 })
-                .setNegativeButton(R.string.YaTengoUnaLista, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.CANCELAR, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         IngresarPresupuesto.this.getDialog().cancel();
                     }

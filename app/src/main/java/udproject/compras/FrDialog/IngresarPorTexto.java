@@ -80,6 +80,9 @@ import udproject.compras.recycler.RecyclerProductAdapter;
 
             //localDB.AgregarProducto(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), Integer.parseInt(Cantidad.getText().toString()));
             localDB.AgregarProducto(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), 1);
+
+            HomeFragment home=new HomeFragment();
+            home.Actualizar(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), 1);
             //Toast.makeText(getContext(), Nombre.getText().toString()+" bruh "+Precio.getText().toString()+" "+Cantidad.getText().toString(), Toast.LENGTH_LONG).show();
         }
         catch (Exception e)

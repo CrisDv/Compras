@@ -9,8 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 import androidx.core.database.sqlite.SQLiteDatabaseKt;
 
+import java.security.PublicKey;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLInput;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +44,8 @@ public class LocalDB extends SQLiteOpenHelper {
             "    Id_Producto INT PRIMARY KEY NOT NULL," +
             "    Name_Producto VARCHAR(50) NOT NULL," +
             "    Precio_Producto INT NOT NULL," +
-            "    Cantidad INT NOT NULL"+
+            "    Cantidad INT NOT NULL,"+
+            "    Marca varchar(20)"+
             ");";
 
     private static final String TABLA_HISTORIAL="CREATE TABLE Historial" +
@@ -75,7 +78,7 @@ public class LocalDB extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TABLA_HISTORIAL);
         sqLiteDatabase.execSQL(TABLA_GUARDADA);
         sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, Precio_Producto,Cantidad)" +
-                "VALUES (3, 'CAFE', 2000, 8)");
+                "VALUES (3, 'CAFE', 2000, 0)");
 
 
     }
@@ -105,16 +108,32 @@ public class LocalDB extends SQLiteOpenHelper {
         //Cursor cr=BDReadProducto.rawQuery("SELECT p.* FROM Productos p, MiLista ML;", null);
         List<Item_Producto> productoList=new ArrayList<>();
 
+        try{
+            for(int i=0;i<=50;i++){
+                while (cr.moveToNext()){
+                    productoList.add(new Item_Producto(cr.getInt(0), cr.getString(1), cr.getInt(2), cr.getInt(3)));
 
-        if (cr.moveToFirst())
-        {
-            do {
-                productoList.add(new Item_Producto(cr.getInt(0), cr.getString(1), cr.getInt(2), cr.getInt(3)));
-            }while (cr.moveToNext());
+                }
+            }
+        }catch (Exception e){
+            System.out.println("LISTA PRODUCTO LOCAL BD "+e);
         }
 
         BDReadProducto.close();
         return productoList;
+    }
+
+    public int CantidadGastada(){
+        SQLiteDatabase read=getReadableDatabase();
+        int total=0;
+        Cursor cursor=read.rawQuery("SELECT SUM(Precio_Producto) FROM Productos",null);
+
+        while (cursor.moveToNext()){
+            total=cursor.getInt(0);
+        }
+
+        read.close();
+        return total;
     }
 
     public boolean ifExist()

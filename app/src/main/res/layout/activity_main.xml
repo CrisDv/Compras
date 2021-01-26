@@ -9,12 +9,61 @@
         android:id="@+id/toolnarNavInterfaz"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#808080"
+        android:background="@color/ToolbarColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="#fff">
+
+        <LinearLayout
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="PRESUPUESTO"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:id="@+id/presupuesto"
+                    android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:gravity="center"
+
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:gravity="center"
+                    android:text="GASTADO"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:id="@+id/presupuestoGastado"
+                    android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:gravity="center"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+        </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

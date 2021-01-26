@@ -39,4 +39,11 @@
         android:layout_gravity="center"
         android:layout_marginBottom="308dp"
         android:text="USAR LISTA YA CREADA" />
+
+    <TextView
+        android:gravity="center"
+        android:textColor="#939493"
+        android:text="Universidad Distrital F.J.D.C"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

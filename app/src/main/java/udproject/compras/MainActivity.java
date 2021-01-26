@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,18 +18,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import udproject.compras.FrDialog.EditarPresupuesto;
 import udproject.compras.FrDialog.IngresarPresupuesto;
+import udproject.compras.firebase.LocalDB;
 import udproject.compras.mainfragments.ListasFragment;
 import udproject.compras.mainfragments.HomeFragment;
 import udproject.compras.mainfragments.CuentaFragment;
 
 public class  MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    TextView TXTpresupuesto, presupuestoGastado;
+    ConversionLetras conversion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
+        // Passing each menu ID as a set of Ids because eachA
         // menu should be considered as top level destinations.
 
         navView.setOnNavigationItemSelectedListener(this);
@@ -39,7 +45,18 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
         Toolbar toolbar= findViewById(R.id.toolnarNavInterfaz);
         setSupportActionBar(toolbar);
         getSupportActionBar();
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+
+        conversion=new ConversionLetras();
+
+        TXTpresupuesto=findViewById(R.id.presupuesto);
+        presupuestoGastado=findViewById(R.id.presupuestoGastado);
+        SharedPreferences sharedPref =getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
+        String Valor=sharedPref.getString("Presupuesto", "0");
+        TXTpresupuesto.setText("$ "+conversion.SeparadorFormat(Valor));
+
+        ActualizarPresupuestoGastadio();
         FragmentManager fragmentManager=getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.nav_host_HOME, new HomeFragment()).commit();
     }
@@ -84,6 +101,29 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
         return true;
     }
 
+
+    public void ActualizarPresupuestoGastadio(){
+        LocalDB localDB=new LocalDB(this);
+        String PresupuestoGastado=String.valueOf(localDB.CantidadGastada());
+
+        SharedPreferences sharedPref =getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
+        String Valor=sharedPref.getString("Presupuesto", "0");
+
+        int Gastadoint=Integer.parseInt(PresupuestoGastado);
+        //int PresupuestoOriginal=Integer.parseInt(String.valueOf(TXTpresupuesto.getText()));
+        int PresupuestoOriginal=Integer.parseInt(Valor);
+        presupuestoGastado.setText("$ "+conversion.SeparadorFormat(PresupuestoGastado));
+        if (PresupuestoOriginal>=Gastadoint){
+            presupuestoGastado.setTextColor(getResources().getColor(R.color.Verde));
+        }
+        else{
+            presupuestoGastado.setTextColor(getResources().getColor(R.color.Rojo));
+        }
+
+    }
+
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -96,8 +136,9 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
         super.onStart();
 
         SharedPreferences sharedPref =getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
-        String valor=sharedPref.getString("PresupeustoEditado", "NO HAY NADA");
+        String valor=sharedPref.getString("IDlista", "NO HAY NADA");
 
-        System.out.println(valor+"a55555555555555555555555555555555555");
+
+        System.out.println(valor+"presupuesto: "+sharedPref.getString("Presupuesto", ""));
     }
 }

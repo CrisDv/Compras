@@ -3,15 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:gravity="center"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<LinearLayout
+    android:weightSum="2"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <TextView
-        android:id="@+id/presupuesto"
+        android:id="@+id/presupuesto1"
         android:layout_width="match_parent"
         android:textStyle="bold"
         android:textSize="13pt"
         android:gravity="center"
+        android:layout_weight="1"
         android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/presupuestoGastado1"
+        android:layout_width="match_parent"
+        android:textStyle="bold"
+        android:textSize="13pt"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="PresupuestoGastado"
+        android:layout_height="match_parent" />
+</LinearLayout>
 
 
 </androidx.appcompat.widget.Toolbar>

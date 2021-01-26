@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".mainfragments.CuentaFragment">
 
-
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -19,38 +19,80 @@
             android:id="@+id/ProfileImg"
             android:layout_width="100dp"
             android:layout_height="100dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/MailUser"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/NameUser"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/TotalCompras"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
         </LinearLayout>
     </LinearLayout>
 
-    <Button
+    <LinearLayout
+        android:id="@+id/LoginFiledfullData"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="155dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/loguear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/TextoVacio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/AnuncioIniciodeSesion"
+            android:textSize="10pt" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/LoginsuccesfullData"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="155dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/loguear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/ChartLine"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <Button
+            android:text="VER TU HISTORIAL DE COMPRAS"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"/>
+    </LinearLayout>
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/loguear"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginBottom="176dp"
+        android:layout_marginBottom="96dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="-16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
