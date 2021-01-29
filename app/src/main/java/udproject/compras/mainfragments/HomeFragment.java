@@ -1,6 +1,9 @@
 package udproject.compras.mainfragments;
 
+import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -12,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -24,6 +29,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +42,7 @@ import udproject.compras.Adapters.Item_Producto;
 import udproject.compras.FrDialog.IngresarPresupuesto;
 import udproject.compras.FrDialog.IngresarPorTexto;
 import udproject.compras.R;
+import udproject.compras.Recognition.Camara;
 import udproject.compras.Recognition.Voice;
 import udproject.compras.firebase.LocalDB;
 import udproject.compras.recycler.RecyclerProductAdapter;
@@ -41,12 +52,14 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
     private RecyclerView RecyclerItemProductos;
     private RecyclerProductAdapter AdaptadorProducto;
     List<Item_Producto> productoList=new ArrayList<>();
+
     FloatingActionButton ShowItems, ItemScanner, ItemMic, ItemText;
     Animation HideCircles, ShowCircles;
     boolean isOpen=false;
     RelativeLayout f;
     IngresarPresupuesto frg;
-
+    Button GuardarLista, EliminarLista;
+    DatabaseReference mReference;
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState)
@@ -60,14 +73,12 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
         String vid=sharedPref.getString("IDlista", "NO HAY NADA");
 
         LocalDB local=new LocalDB(getContext());
-        AdaptadorProducto = new RecyclerProductAdapter(local.ListaProducto(vid),this);
+        AdaptadorProducto = new RecyclerProductAdapter(local.ListaProducto(vid),HomeFragment.this);
         //AdaptadorProducto = new RecyclerProductAdapter(null,this);
         RecyclerItemProductos.setAdapter(AdaptadorProducto);
 
         f=view.findViewById(R.id.FLOAT);
-
-        RecyclerView.ItemDecoration divider=new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
-        RecyclerItemProductos.addItemDecoration(divider);
+        mReference= FirebaseDatabase.getInstance().getReference();
 
         HideCircles= AnimationUtils.loadAnimation(getContext(), R.anim.hide_animation);
         ShowCircles=AnimationUtils.loadAnimation(getContext(), R.anim.show_animation);
@@ -76,11 +87,15 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
         ItemMic=view.findViewById(R.id.IngresarPorVoz);
         ItemScanner=view.findViewById(R.id.IngresarPorScanner);
         ItemText=view.findViewById(R.id.IngresarPorTexto);
+        GuardarLista=view.findViewById(R.id.GuardarLista);
+        EliminarLista=view.findViewById(R.id.EliminarLista);
 
         ShowItems.setOnClickListener(this);
         ItemText.setOnClickListener(this);
         ItemScanner.setOnClickListener(this);
         ItemMic.setOnClickListener(this);
+        GuardarLista.setOnClickListener(this);
+        EliminarLista.setOnClickListener(this);
         local.close();
 
         RecyclerItemProductos.setHasFixedSize(true);
@@ -89,8 +104,22 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
         RecyclerItemProductos.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
 
-        eliminar();
 
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int pos=viewHolder.getAdapterPosition();
+                AdaptadorProducto.Elimina(pos);
+
+            }
+        };
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(RecyclerItemProductos);
+        System.out.println("OSU!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return view;
     }
 
@@ -131,34 +160,45 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
             }
     }
 
+
+
+    private void GuardarL()
+    {
+        LocalDB localDB=new LocalDB(getContext());
+        SharedPreferences sharedPref = getContext().getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
+        String vid=sharedPref.getString("IDlista", "NO HAY NADA");
+        localDB.GuardarLista(vid);
+        Toast.makeText(getContext(), "Lista Guardada", Toast.LENGTH_LONG).show();
+    }
+
+    private void EliminarL()
+    {
+
+    }
+
     @Override
     public void onProductClick(int posicion) {
 
+        InfoProducto(posicion);
     }
 
-    private void eliminar()
-    {
-        ItemTouchHelper itemTouchHelper=new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+    private void InfoProducto(int Position){
+        String Name=productoList.get(Position).getNombre();
+
+
+
+        mReference.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String a=snapshot.getKey();
+                System.out.println(a);
             }
 
             @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int posicion=viewHolder.getAdapterPosition();
-                productoList.remove(posicion);
-                AdaptadorProducto.notifyItemRemoved(posicion);
-                AdaptadorProducto.notifyItemRangeChanged(posicion, productoList.size());
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-        itemTouchHelper.attachToRecyclerView(RecyclerItemProductos);
-    }
-
-    public void Actualizar(int id_product, String Nombre, int Precio, int Cantidad)
-    {
-        productoList.add(new Item_Producto(id_product, Nombre, Precio, Cantidad));
-        AdaptadorProducto.notifyDataSetChanged();
     }
 
     @Override
@@ -168,12 +208,25 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
                 ChooseInput();
                 break;
             case R.id.IngresarPorTexto:
+                ChooseInput();
                 DialogFragment FragmentTEXT=new IngresarPorTexto();
                 FragmentTEXT.show(getParentFragmentManager(), "xde");
                 break;
             case R.id.IngresarPorVoz:
+                ChooseInput();
                 Intent intent=new Intent(getContext(), Voice.class);
                 startActivity(intent);
+                break;
+            case R.id.IngresarPorScanner:
+                ChooseInput();
+                Intent scanner=new Intent(getContext(), Camara.class);
+                startActivity(scanner);
+                break;
+            case R.id.GuardarLista:
+                GuardarL();
+                break;
+            case R.id.EliminarLista:
+                EliminarL();
                 break;
         }
     }

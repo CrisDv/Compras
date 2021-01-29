@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -42,6 +43,10 @@ import udproject.compras.firebase.LocalDB;
             Cantidad=itemView.findViewById(R.id.CantidadProducto);
             Sumar=itemView.findViewById(R.id.SumarCantidad);
             Restar=itemView.findViewById(R.id.RestarCantidad);
+
+            this.productListener=productListener;
+
+            itemView.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
@@ -74,29 +79,27 @@ import udproject.compras.firebase.LocalDB;
         holder.Cantidad.setText(Integer.toString(productoList.get(position).getCantidad()));
         holder.Precio.setText(Integer.toString(productoList.get(position).getPrecio()));
 
-
+        LocalDB localDB=new LocalDB(context);
         holder.Sumar.setOnClickListener(view ->{
             int mas=productoList.get(position).getCantidad();
             mas++;
             productoList.get(position).setCantidad(mas);
             holder.Cantidad.setText(Integer.toString(productoList.get(position).getCantidad()));
 
-
-            int PrecioTotal =productoList.get(position).getPrecio();
             int Cantidad=productoList.get(position).getCantidad();
 
-            int precioFinal=0;
-            if (Cantidad>=2){
-                precioFinal= PrecioTotal*Cantidad;
-            }else{
-                precioFinal=precioFinal*Cantidad;
-            }
+
+
+            int precioFinal=localDB.PrecioUnitario(productoList.get(position).getID())*Cantidad;
+
 
             productoList.get(position).setPrecio(precioFinal);
             holder.Precio.setText(Integer.toString(productoList.get(position).getPrecio()));
 
             SetCantidad(productoList.get(position).getID(), mas, precioFinal);
+
         });
+
 
             holder.Restar.setOnClickListener(view ->{
                 int menos=productoList.get(position).getCantidad();
@@ -104,18 +107,30 @@ import udproject.compras.firebase.LocalDB;
                 productoList.get(position).setCantidad(menos);
                 holder.Cantidad.setText(Integer.toString(productoList.get(position).getCantidad()));
 
-                int total=productoList.get(position).getPrecio();
-                int preciou=total/productoList.get(position).getCantidad();
 
-                int preciofinal=total-preciou;
-                productoList.get(position).setPrecio(preciofinal);
+                int Cantidad=productoList.get(position).getCantidad();
+                int precioFinal=localDB.PrecioUnitario(productoList.get(position).getID())*Cantidad;
+
+                productoList.get(position).setPrecio(precioFinal);
                 holder.Precio.setText(Integer.toString(productoList.get(position).getPrecio()));
 
-                SetCantidad(productoList.get(position).getID(), menos, preciofinal);
-            });
+                SetCantidad(productoList.get(position).getID(), menos, precioFinal);
 
+            });
+        localDB.close();
     }
 
+    public void Elimina(int position)
+    {
+        productoList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, productoList.size());
+
+        LocalDB localDB=new LocalDB(context);
+        int ig=productoList.get(position).getID();
+        localDB.EliminarProductoDeLista(ig);
+
+    }
     private void SetCantidad( int ID, int Cantidad, int precio){
         LocalDB localDB=new LocalDB(context);
 
@@ -128,7 +143,7 @@ import udproject.compras.firebase.LocalDB;
 
     public interface OnProductListener
     {
-        void onProductClick(int posicion);
+        void onProductClick(int position);
 
     }
 
@@ -137,11 +152,4 @@ import udproject.compras.firebase.LocalDB;
 
         return productoList.size(); //Primero carga los items (SHIMMER) y luego la lista
     }
-
-   /* private int GetPrecioUnitario(int Cantidad, int PrecioTotal){
-
-        int precioUnitario=PrecioTotal/Cantidad;
-
-        return precioUnitario;
-    }*/
 }

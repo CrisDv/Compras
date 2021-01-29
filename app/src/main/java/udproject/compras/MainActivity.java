@@ -1,6 +1,8 @@
 package udproject.compras;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -109,20 +111,45 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
         SharedPreferences sharedPref =getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
         String Valor=sharedPref.getString("Presupuesto", "0");
 
+        int percent= (int) ((Integer.parseInt(Valor)*0.10));
+
         int Gastadoint=Integer.parseInt(PresupuestoGastado);
         //int PresupuestoOriginal=Integer.parseInt(String.valueOf(TXTpresupuesto.getText()));
         int PresupuestoOriginal=Integer.parseInt(Valor);
+
+        int prueba=PresupuestoOriginal-Gastadoint;
         presupuestoGastado.setText("$ "+conversion.SeparadorFormat(PresupuestoGastado));
         if (PresupuestoOriginal>=Gastadoint){
             presupuestoGastado.setTextColor(getResources().getColor(R.color.Verde));
         }
-        else{
+        else if (PresupuestoOriginal<=Gastadoint){
             presupuestoGastado.setTextColor(getResources().getColor(R.color.Rojo));
+            AlertaLimitePresupuesto();
         }
+        System.out.println("Porcentaje: "+percent+" Prueba "+prueba+" ");
 
+        if (percent>prueba){
+            AlertaLimitePresupuesto();
+            //presupuestoGastado.setTextColor(getResources().getColor(R.color.Naranja));
+        }
     }
 
+    public void AlertaLimitePresupuesto()
+    {
+        new AlertDialog.Builder(this)
+                .setTitle("LIMITE DEL PRESUPUESTO")
+                .setMessage("Te estas acercando o te pasaste de tu presupuesto")
 
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 
     @Override
     public void onBackPressed() {

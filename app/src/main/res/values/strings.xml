@@ -14,14 +14,18 @@
     <string name="crea_una_nueva_lista_por">CREA UNA NUEVA LISTA POR:</string>
     <string name="Agregar_Nuevo_producto">QUIERES AGREGAR UN NUEVO PRODUCTO?</string>
     <string name="AnuncioIniciodeSesion">
-        Quieres guardar tus listas y mantener saber cuanto gastas? <br/>
-        Guardamos esos calculos por ti!! Solo tienes que iniciar sesion con tu cuenta de Google <br/>
-        <br/><br/>
+        Quieres guardar tus listas y mantener saber cuanto gastas? <br />
+        Guardamos esos calculos por ti!! Solo tienes que iniciar sesion con tu cuenta de Google <br />
+        <br /><br />
         No te preocupes por tus datos, mandanos un mensaje y eliminaremos tu cuenta en seguida
     </string>
 
     <string name="Creditos">
-        Universidad Distrital F.J.D.C <br/>
+        Universidad Distrital F.J.D.C <br />
 
     </string>
+    <string name="escaneartexto">Escanear Texto</string>
+    <string name="tomar_foto">Tomar Foto</string>
+    <string name="eliminar_lista">Eliminar Lista</string>
+    <string name="guardar_lista">Guardar Lista</string>
 </resources>

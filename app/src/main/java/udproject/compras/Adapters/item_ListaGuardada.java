@@ -3,18 +3,13 @@ package udproject.compras.Adapters;
 public class item_ListaGuardada {
     private String TituloLista;
     private int TotalProductos;
-    private String TotalPrecio;
+    private int TotalPrecio;
+    private String IDproducto;
 
-    public item_ListaGuardada(String TituloLista, String TotalPrecio, int TotalProductos)
-    {
-        this.TituloLista=TituloLista;
-        this.TotalPrecio=TotalPrecio;
-        this.TotalProductos=TotalProductos;
-    }
-
-    public item_ListaGuardada()
-    {
-
+    public item_ListaGuardada(String tituloLista, int totalPrecio, String IDproducto) {
+        TituloLista = tituloLista;
+        TotalPrecio = totalPrecio;
+        this.IDproducto = IDproducto;
     }
 
     public String getTituloLista() {
@@ -25,19 +20,19 @@ public class item_ListaGuardada {
         TituloLista = tituloLista;
     }
 
-    public int getTotalProductos() {
-        return TotalProductos;
-    }
-
-    public void setTotalProductos(int totalProductos) {
-        TotalProductos = totalProductos;
-    }
-
-    public String getTotalPrecio() {
+    public int getTotalPrecio() {
         return TotalPrecio;
     }
 
-    public void setTotalPrecio(String totalPrecio) {
+    public void setTotalPrecio(int totalPrecio) {
         TotalPrecio = totalPrecio;
+    }
+
+    public String getIDproducto() {
+        return IDproducto;
+    }
+
+    public void setIDproducto(String IDproducto) {
+        this.IDproducto = IDproducto;
     }
 }

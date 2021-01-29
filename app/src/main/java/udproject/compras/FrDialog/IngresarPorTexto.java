@@ -61,12 +61,6 @@ import udproject.compras.recycler.RecyclerProductAdapter;
         return  builder.create();
     }
 
-
-    private void AgregarCantidad()
-    {
-
-    }
-
     private void AgregarProducto()
     {
         Nombre=getDialog().findViewById(R.id.DialoogNombreProducto);
@@ -74,16 +68,13 @@ import udproject.compras.recycler.RecyclerProductAdapter;
         //Cantidad=getDialog().findViewById(R.id.DialogCantidadProducto);
 
         LocalDB localDB=new LocalDB(getContext());
-        int IDRandom= (int) (Math.floor(Math.random() * (500 - 1)) + 1);//Math.floor(Math.random() * (max - min)) + min;
+        int IDRandom= (int) (Math.floor(Math.random() * (5000 - 1)) + 1);//Math.floor(Math.random() * (max - min)) + min;
 
         try {
 
             //localDB.AgregarProducto(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), Integer.parseInt(Cantidad.getText().toString()));
             localDB.AgregarProducto(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), 1);
 
-            HomeFragment home=new HomeFragment();
-            home.Actualizar(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), 1);
-            //Toast.makeText(getContext(), Nombre.getText().toString()+" bruh "+Precio.getText().toString()+" "+Cantidad.getText().toString(), Toast.LENGTH_LONG).show();
         }
         catch (Exception e)
         {

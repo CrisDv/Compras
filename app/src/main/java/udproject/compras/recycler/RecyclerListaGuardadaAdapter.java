@@ -23,7 +23,7 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        private TextView TituloItem, ListaPrecioTotal, ProductosEnTotal;
+        TextView TituloLista, CantPresupuesto, CantProductos;
 
         //ShimmerFrameLayout shimmerFrameLayout;
 
@@ -33,9 +33,8 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
         {
             super(itemView);
           //  shimmerFrameLayout=itemView.findViewById(R.id.shimerItemHistorial);
-            TituloItem=itemView.findViewById(R.id.TituloItemHistorial);
-            ProductosEnTotal=itemView.findViewById(R.id.ProductosTotal);
-            ListaPrecioTotal=itemView.findViewById(R.id.PrecioTotalLista);
+            TituloLista=itemView.findViewById(R.id.TituloLista);
+            CantPresupuesto=itemView.findViewById(R.id.PresupuestoListaGuardada);
 
             this.onItemListener=onItemListener;
             itemView.setOnClickListener(this);
@@ -48,11 +47,11 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
         }
     }
 
-    public List<item_ListaGuardada> ItemHistorialList;
+    public List<item_ListaGuardada> ItemListaGuardada;
 
     public RecyclerListaGuardadaAdapter(List<item_ListaGuardada>GuardadoLista, OnItemGuardadoListener onItemguardadoListener)
     {
-        this.ItemHistorialList=GuardadoLista;
+        this.ItemListaGuardada=GuardadoLista;
         this.mItemListener=onItemguardadoListener;
     }
 
@@ -60,7 +59,7 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_historial, parent, false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_guardada, parent, false);
         ViewHolder viewHolder=new ViewHolder(view, mItemListener);
 
         return viewHolder;
@@ -68,6 +67,8 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.TituloLista.setText(ItemListaGuardada.get(position).getTituloLista());
+        holder.CantPresupuesto.setText(ItemListaGuardada.get(position).getTotalPrecio());
 
     }
 
@@ -79,6 +80,6 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
 
     @Override
     public int getItemCount() {
-        return ItemHistorialList.size();
+        return ItemListaGuardada.size();
     }
 }

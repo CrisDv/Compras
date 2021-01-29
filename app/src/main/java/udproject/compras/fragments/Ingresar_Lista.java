@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import udproject.compras.Recognition.CameraScanner;
 import udproject.compras.FrDialog.IngresarPorTexto;
 import udproject.compras.R;
 
@@ -33,7 +32,7 @@ public class Ingresar_Lista extends Fragment implements View.OnClickListener {
                 newFragment.show(getFragmentManager(), "xde");
             }
         });
-
+/*
         Button Scanner=view.findViewById(R.id.IngresarScanner);
         Scanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +40,7 @@ public class Ingresar_Lista extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), CameraScanner.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         return view;
     }

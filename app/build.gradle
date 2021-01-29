@@ -36,13 +36,22 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     //FIREBASE
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    //implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.firebase:firebase-ml-vision:24.0.3'
+    implementation 'com.google.firebase:firebase-ml-vision:15.0.0'
+    implementation 'com.google.firebase:firebase-core:15.0.2'
+
+    //CameraKit
+    //implementation 'com.wonderkit:camerakit:0.13.1'
     // Import the BoM for the Firebase platform
     implementation 'com.google.firebase:firebase-database:19.5.0'
 
+    //VISION API
+
+    implementation 'com.google.android.gms:play-services-base:17.5.0'
+    implementation 'com.google.api-client:google-api-client-android:1.22.0'
+    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
     implementation 'com.google.firebase:firebase-auth:19.4.0'
     implementation 'com.google.android.gms:play-services-auth:18.1.0'
