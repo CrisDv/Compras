@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import udproject.compras.FrDialog.IngresarPresupuesto;
 import udproject.compras.firebase.LocalDB;
@@ -19,12 +20,12 @@ public class CreacionLista extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creacion_lista);
+        ImageView img=findViewById(R.id.ImagenInicio2);
 
+        img.setImageResource(R.drawable.photo4951865291495811277);
         CrearLista=findViewById(R.id.CrearLista);
-        ListaYaCreada=findViewById(R.id.ListaYaCreada);
 
         CrearLista.setOnClickListener(this);
-        ListaYaCreada.setOnClickListener(this);
     }
 
 
@@ -36,9 +37,6 @@ public class CreacionLista extends AppCompatActivity implements View.OnClickList
             case R.id.CrearLista:
                 DialogFragment newFragment=new IngresarPresupuesto();
                 newFragment.show(getSupportFragmentManager(), "xde");
-                break;
-            case R.id.ListaYaCreada:
-
                 break;
         }
     }

@@ -51,13 +51,6 @@ public class LocalDB extends SQLiteOpenHelper {
             "    Marca varchar(20)"+
             ");";
 
-    private static final String TABLA_HISTORIAL="CREATE TABLE Historial" +
-            "("+
-            "    Id_Historial VARCHAR(40) PRIMARY KEY NOT NULL," +
-            "    Id_Lista VARCHAR(40),"+
-            "    FOREIGN KEY (Id_Lista) REFERENCES MiLista(Id_Lista)"+
-            ");";
-
     private static final String TABLA_GUARDADA="CREATE TABLE ListaGuardada" +
             "("+
             "    Id_Guardada VARCHAR(40) PRIMARY KEY NOT NULL," +
@@ -77,7 +70,7 @@ public class LocalDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(TABLA_LISTA);
         sqLiteDatabase.execSQL(TABLA_PRODUCTO);
-        sqLiteDatabase.execSQL(TABLA_HISTORIAL);
+        //sqLiteDatabase.execSQL(TABLA_HISTORIAL);
         sqLiteDatabase.execSQL(TABLA_GUARDADA);
         /*sqLiteDatabase.execSQL("insert into Productos (Id_Producto, Name_Producto, PrecioUnitario,Cantidad)" +
                 "VALUES (3, 'CAFE', 2000, 1)");*/
@@ -110,16 +103,17 @@ public class LocalDB extends SQLiteOpenHelper {
     {
         SQLiteDatabase BDReadProducto=getReadableDatabase();
         Cursor cr=BDReadProducto.rawQuery("SELECT p.Id_Producto, p.Name_Producto,P.Precio_Producto , P.Cantidad, P.PrecioUnitario FROM Productos p, MiLista ML WHERE ML.Id_Lista='"+idLista+"';", null);
-        //Cursor cr=BDReadProducto.rawQuery("SELECT p.* FROM Productos p, MiLista ML;", null);
+        //Cursor cr=BDReadProducto.rawQuery("SELECT p.Id_Producto, p.Name_Producto,P.Precio_Producto , P.Cantidad, P.PrecioUnitario FROM Productos p, MiLista ML WHERE ML.Id_Lista='A';", null);
+
         List<Item_Producto> productoList=new ArrayList<>();
 
         try{
-            for(int i=0;i<=50;i++){
+
                 while (cr.moveToNext()){
                     productoList.add(new Item_Producto(cr.getInt(0), cr.getString(1), cr.getInt(2), cr.getInt(3), cr.getInt(4)));
 
                 }
-            }
+
         }catch (Exception e){
             System.out.println("LISTA PRODUCTO LOCAL BD "+e);
         }

@@ -1,6 +1,7 @@
  package udproject.compras.recycler;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import udproject.compras.Adapters.Item_Producto;
+import udproject.compras.DetallesProductos;
 import udproject.compras.R;
 import udproject.compras.firebase.LocalDB;
+import udproject.compras.mainfragments.HomeFragment;
 
  public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProductAdapter.ViewHolder> {
 
@@ -31,7 +34,7 @@ import udproject.compras.firebase.LocalDB;
         private TextView Nombre, Precio, Descripcion, Cantidad;
         private Button Sumar, Restar;
 
-        OnProductListener productListener;
+        OnProductListener mProductListener;
 
         //ShimmerFrameLayout shimmerFrame;
         public ViewHolder(View itemView, OnProductListener productListener)
@@ -44,22 +47,22 @@ import udproject.compras.firebase.LocalDB;
             Sumar=itemView.findViewById(R.id.SumarCantidad);
             Restar=itemView.findViewById(R.id.RestarCantidad);
 
-            this.productListener=productListener;
+            mProductListener=productListener;
 
             itemView.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
-            productListener.onProductClick(getAdapterPosition());
+            mProductListener.onProductClick(getAdapterPosition());
         }
     }
 
     public List<Item_Producto> productoList;
   
-    public  RecyclerProductAdapter(List<Item_Producto>productoList, OnProductListener productListener)
+    public  RecyclerProductAdapter(List<Item_Producto>productoList, OnProductListener Listener)
     {
         this.productoList=productoList;
-        this.mProductListener=productListener;
+        mProductListener=Listener;
     }
 
     @NonNull
@@ -87,8 +90,6 @@ import udproject.compras.firebase.LocalDB;
             holder.Cantidad.setText(Integer.toString(productoList.get(position).getCantidad()));
 
             int Cantidad=productoList.get(position).getCantidad();
-
-
 
             int precioFinal=localDB.PrecioUnitario(productoList.get(position).getID())*Cantidad;
 
@@ -141,6 +142,33 @@ import udproject.compras.firebase.LocalDB;
         sqLiteDatabase.close();
     }
 
+    public void GetNamePosition(int posicion){
+
+        String Name=productoList.get(posicion).getNombre();
+        System.out.println(Name);
+        String[] Palabras=Name.split("\\s+");
+        String[] Productos={"Aceite", "Arroz", "Azucar", "Blanqueador", "Cafe", "Cereal", "Cerveza",
+                "Chocolate", "Desodorante", "Galletas", "Harina", "Leche", "Lentejas", "Mantequilla",
+                "Gelatina", "Shampoo"};
+        String NombreFinal="";
+        for (int i=0;i<Palabras.length;i++)
+        {
+            for(int j=0;j<Productos.length;j++){
+                if (Palabras[i].equals(Productos[j])){
+                    System.out.println("ENCONTRADO: "+Palabras[i]+" - "+Productos[j]);
+                    NombreFinal=Productos[j];
+                    break;
+                }
+                else {
+                    System.out.println("NOASDADAD");
+                }
+            }
+        }
+        Intent intent=new Intent(context, DetallesProductos.class);
+        intent.putExtra("NombreProducto", NombreFinal);
+        context.startActivity(intent);
+    }
+
     public interface OnProductListener
     {
         void onProductClick(int position);
@@ -150,6 +178,6 @@ import udproject.compras.firebase.LocalDB;
     @Override
     public int getItemCount() {
 
-        return productoList.size(); //Primero carga los items (SHIMMER) y luego la lista
+        return productoList.size();
     }
 }

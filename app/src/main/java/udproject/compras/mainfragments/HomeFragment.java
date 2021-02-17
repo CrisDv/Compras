@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import udproject.compras.Adapters.Item_Producto;
+import udproject.compras.DetallesProductos;
 import udproject.compras.FrDialog.IngresarPresupuesto;
 import udproject.compras.FrDialog.IngresarPorTexto;
 import udproject.compras.R;
@@ -59,7 +62,8 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
     RelativeLayout f;
     IngresarPresupuesto frg;
     Button GuardarLista, EliminarLista;
-    DatabaseReference mReference;
+    Context context;
+
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState)
@@ -77,8 +81,10 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
         //AdaptadorProducto = new RecyclerProductAdapter(null,this);
         RecyclerItemProductos.setAdapter(AdaptadorProducto);
 
+
         f=view.findViewById(R.id.FLOAT);
-        mReference= FirebaseDatabase.getInstance().getReference();
+
+        context=view.getContext();
 
         HideCircles= AnimationUtils.loadAnimation(getContext(), R.anim.hide_animation);
         ShowCircles=AnimationUtils.loadAnimation(getContext(), R.anim.show_animation);
@@ -171,35 +177,18 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
         Toast.makeText(getContext(), "Lista Guardada", Toast.LENGTH_LONG).show();
     }
 
-    private void EliminarL()
-    {
-
-    }
 
     @Override
     public void onProductClick(int posicion) {
 
-        InfoProducto(posicion);
+        //InfoProducto(posicion);
+
+        System.out.println(posicion);
+        AdaptadorProducto.GetNamePosition(posicion);
+
     }
 
-    private void InfoProducto(int Position){
-        String Name=productoList.get(Position).getNombre();
 
-
-
-        mReference.child("Productos").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String a=snapshot.getKey();
-                System.out.println(a);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     @Override
     public void onClick(final View v) {
@@ -225,9 +214,9 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
             case R.id.GuardarLista:
                 GuardarL();
                 break;
-            case R.id.EliminarLista:
+            /*case R.id.EliminarLista:
                 EliminarL();
-                break;
+                break;*/
         }
     }
 }

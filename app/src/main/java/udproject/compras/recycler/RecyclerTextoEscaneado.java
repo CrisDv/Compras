@@ -114,7 +114,8 @@ public class RecyclerTextoEscaneado extends RecyclerView.Adapter<RecyclerTextoEs
     private void Add(String Nombre, String Precio){
         int IDRandom= (int) (Math.floor(Math.random() * (5000 - 1)) + 1);//Math.floor(Math.random() * (max - min)) + min;
         LocalDB localDB=new LocalDB(context);
-        String a= Precio.replace("$", " ").replace(".", " ").replace(" ", "").replace("S", " ");
+        String a= Precio.replace("$", " ").replace(".", " ").replace(" ", "").replace(",", "").replace("S", " ").
+                replace("D", "");
         int PrecioU=Integer.parseInt(a);
         localDB.AgregarProducto(IDRandom, Nombre, PrecioU, 1);
         localDB.close();

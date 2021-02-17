@@ -81,11 +81,6 @@
             android:id="@+id/ChartLine"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
-
-        <Button
-            android:text="VER TU HISTORIAL DE COMPRAS"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"/>
     </LinearLayout>
     <com.google.android.gms.common.SignInButton
         android:id="@+id/loguear"

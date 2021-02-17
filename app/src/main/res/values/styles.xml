@@ -23,4 +23,12 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+
+    <style name="ThemeFull" parent="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+    </style>
 </resources>

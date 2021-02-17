@@ -6,8 +6,9 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <uses-feature android:name="android.hardware.camera.any" />
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -19,11 +20,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Recognition.Camara"></activity>
+        <activity android:name=".DetallesProductos"></activity>
+        <activity android:name=".Recognition.Camara" />
         <activity android:name=".Recognition.Voice" />
         <activity android:name=".FrDialog.IngresarPorTexto" />
         <activity android:name=".FrDialog.IngresarPresupuesto" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".CreacionLista" />
         <activity
             android:name=".Recognition.CameraScanner"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -38,8 +41,9 @@
             android:value="ocr" />
 
         <activity
-            android:name=".CreacionLista"
-            android:label="@string/app_name">
+            android:name=".Splash"
+            android:label="@string/app_name"
+            android:theme="@style/ThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
