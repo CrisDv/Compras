@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fff"
     tools:context=".mainfragments.HomeFragment">
 
     <LinearLayout
@@ -21,17 +20,17 @@
 
         <Button
             android:id="@+id/GuardarLista"
-            android:text="@string/guardar_lista"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/guardar_lista" />
 
         <Button
             android:id="@+id/EliminarLista"
-            android:text="@string/eliminar_lista"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/eliminar_lista" />
     </LinearLayout>
 
     <RelativeLayout
@@ -54,62 +53,60 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:visibility="visible"
+            tools:visibility="visible" />
 
+        <RelativeLayout
+            android:id="@+id/FLOAT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="72dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/IngresarPorScanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/IngresarPorVoz"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="6dp"
+                android:src="@drawable/ic_baseline_camera_enhance_24"
+                android:visibility="invisible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/IngresarPorVoz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/IngresarPorTexto"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="6dp"
+                android:src="@drawable/ic_baseline_mic_24"
+                android:visibility="invisible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/IngresarPorTexto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/EscogerMetodo"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="6dp"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_text_fields_24"
+                android:visibility="invisible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/EscogerMetodo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:src="@drawable/ic_baseline_add_24" />
+        </RelativeLayout>
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/FLOAT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="73dp">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/IngresarPorScanner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/IngresarPorVoz"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="6dp"
-            android:visibility="invisible"
-            android:src="@drawable/ic_baseline_camera_enhance_24" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/IngresarPorVoz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/IngresarPorTexto"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="6dp"
-            android:visibility="invisible"
-            android:src="@drawable/ic_baseline_mic_24" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/IngresarPorTexto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/EscogerMetodo"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="6dp"
-            android:clickable="true"
-            android:visibility="invisible"
-            android:src="@drawable/ic_baseline_text_fields_24" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/EscogerMetodo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            android:src="@drawable/ic_baseline_add_24" />
-    </RelativeLayout>
-
-
 </RelativeLayout>

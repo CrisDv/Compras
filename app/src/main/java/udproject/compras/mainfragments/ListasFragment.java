@@ -10,14 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.vision.text.Line;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import udproject.compras.Adapters.item_ListaGuardada;
 import udproject.compras.R;
-import udproject.compras.firebase.LocalDB;
+import udproject.compras.BD.LocalDB;
 import udproject.compras.recycler.RecyclerListaGuardadaAdapter;
 
 public class ListasFragment extends Fragment implements RecyclerListaGuardadaAdapter.OnItemGuardadoListener{
@@ -44,6 +42,7 @@ public class ListasFragment extends Fragment implements RecyclerListaGuardadaAda
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getContext(), position, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_LONG).show();
+        AdapterListaGuardada.Valores(position);
     }
 }

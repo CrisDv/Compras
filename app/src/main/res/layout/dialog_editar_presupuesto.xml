@@ -2,27 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="200dp"
     android:layout_height="wrap_content"
+    android:background="#131313"
+    android:orientation="vertical"
     tools:context=".FrDialog.EditarPresupuesto">
 
     <TextView
-        android:text="Deseas modificar tu presupuesto? Escribelo aqui!"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"/>
+        android:layout_marginBottom="4dp"
+        android:background="#201F1F"
+        android:fontFamily="serif"
+        android:text="Deseas modificar tu presupuesto? Escribelo aqui!"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF" />
+
     <EditText
         android:id="@+id/edit_presupuesto"
         android:layout_width="match_parent"
-        android:inputType="number"
         android:layout_height="50dp"
-        android:layout_marginTop="4dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif"/>
+        android:fontFamily="serif"
+        android:textColor="#FFFFFF"
+        android:inputType="number" />
 </LinearLayout>

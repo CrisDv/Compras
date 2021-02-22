@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Recognition.Camara">
 
     <ImageView
@@ -20,7 +20,6 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerOpcionesdeTexto"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/LayoutBotonesCamara"
@@ -30,7 +29,9 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
+        android:clickable="true" />
 
     <LinearLayout
         android:id="@+id/LayoutBotonesCamara"
@@ -44,26 +45,30 @@
         android:layout_marginBottom="0dp"
         android:orientation="horizontal"
         android:weightSum="3">
+
         <Button
             android:id="@+id/Tomar"
-            android:text="@string/tomar_foto"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="serif"
+            android:text="@string/tomar_foto" />
 
         <Button
             android:id="@+id/SaveSelection"
-            android:text="Guardar Seleccion"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="serif"
+            android:text="Guardar Seleccion" />
 
         <Button
             android:id="@+id/AnalizarImagen"
-            android:text="@string/escaneartexto"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="serif"
+            android:text="@string/escaneartexto" />
     </LinearLayout>
 
 </RelativeLayout>

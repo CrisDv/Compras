@@ -2,19 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#151515"
+    android:orientation="vertical"
     tools:context=".DetallesProductos">
 
-<TextView
-    android:id="@+id/TipoDeMarca"
-    android:textSize="10pt"
-    android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"/>
+    <TextView
+        android:id="@+id/TipoDeMarca"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#FFEB3B"
+        android:gravity="center"
+        android:textSize="10pt" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/GraficaProductos"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="250dp"
+        android:background="#D3D1D1" />
 </LinearLayout>

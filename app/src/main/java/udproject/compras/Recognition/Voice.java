@@ -5,14 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.speech.RecognizerIntent;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +17,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import udproject.compras.ConversionLetras;
 import udproject.compras.R;
-import udproject.compras.firebase.LocalDB;
+import udproject.compras.BD.LocalDB;
 
 public class Voice extends AppCompatActivity {
 

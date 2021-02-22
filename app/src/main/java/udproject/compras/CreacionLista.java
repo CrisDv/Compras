@@ -3,14 +3,15 @@ package udproject.compras;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import udproject.compras.FrDialog.IngresarPresupuesto;
-import udproject.compras.firebase.LocalDB;
 
 public class CreacionLista extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,12 +42,24 @@ public class CreacionLista extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private boolean ifExist()
+    {
+        SharedPreferences sharedPref = this.getSharedPreferences("CREDENCIALES", Context.MODE_PRIVATE);
+        String idl=sharedPref.getString("IDlista", "NO HAY NADA");
+
+        if (idl!="NO HAY NADA")
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        LocalDB localDB=new LocalDB(this);
-        if (localDB.ifExist()){
+        if (ifExist()){
             Intent intent=new Intent(this, MainActivity.class);
             startActivity(intent);
         }

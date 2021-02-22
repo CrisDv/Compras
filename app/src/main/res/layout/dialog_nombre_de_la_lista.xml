@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    tools:context=".FrDialog.IngresarPresupuesto">
+
+    <TextView
+        android:text="Ingresa el nombre de la lista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="serif"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/NombreDeLista"
+        android:layout_width="match_parent"
+        android:inputType="text"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center" />
+
+    <TextView
+        android:text="Ingresa el nombre del Almacen, tienda o mercado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="serif"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/NombreDelAlmacen"
+        android:layout_width="match_parent"
+        android:inputType="text"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center" />
+</LinearLayout>

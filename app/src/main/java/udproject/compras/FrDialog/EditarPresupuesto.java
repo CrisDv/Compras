@@ -1,25 +1,18 @@
 package udproject.compras.FrDialog;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.CamcorderProfile;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import udproject.compras.CreacionLista;
-import udproject.compras.MainActivity;
 import udproject.compras.R;
-import udproject.compras.firebase.LocalDB;
 
 import static android.content.Context.MODE_PRIVATE;
 

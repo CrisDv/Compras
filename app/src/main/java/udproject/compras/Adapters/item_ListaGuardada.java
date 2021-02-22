@@ -1,38 +1,58 @@
 package udproject.compras.Adapters;
 
 public class item_ListaGuardada {
-    private String TituloLista;
-    private int TotalProductos;
-    private int TotalPrecio;
-    private String IDproducto;
+    private String NombreLista, IDLista, AlmacenDeCompra;
+    private int PresupuestoInicial, TotalProductos;
 
-    public item_ListaGuardada(String tituloLista, int totalPrecio, String IDproducto) {
-        TituloLista = tituloLista;
-        TotalPrecio = totalPrecio;
-        this.IDproducto = IDproducto;
+    public item_ListaGuardada(String nombreLista, String IDLista, int presupuestoInicial, int totalProductos, String AlmacenDeCompra) {
+        NombreLista = nombreLista;
+        this.IDLista = IDLista;
+        PresupuestoInicial = presupuestoInicial;
+        TotalProductos = totalProductos;
+        AlmacenDeCompra=AlmacenDeCompra;
     }
 
-    public String getTituloLista() {
-        return TituloLista;
+    public item_ListaGuardada() {
+
     }
 
-    public void setTituloLista(String tituloLista) {
-        TituloLista = tituloLista;
+    public String getNombreLista() {
+        return NombreLista;
     }
 
-    public int getTotalPrecio() {
-        return TotalPrecio;
+    public void setNombreLista(String nombreLista) {
+        NombreLista = nombreLista;
     }
 
-    public void setTotalPrecio(int totalPrecio) {
-        TotalPrecio = totalPrecio;
+    public String getIDLista() {
+        return IDLista;
     }
 
-    public String getIDproducto() {
-        return IDproducto;
+    public void setIDLista(String IDLista) {
+        this.IDLista = IDLista;
     }
 
-    public void setIDproducto(String IDproducto) {
-        this.IDproducto = IDproducto;
+    public int getPresupuestoInicial() {
+        return PresupuestoInicial;
+    }
+
+    public void setPresupuestoInicial(int presupuestoInicial) {
+        PresupuestoInicial = presupuestoInicial;
+    }
+
+    public int getTotalProductos() {
+        return TotalProductos;
+    }
+
+    public void setTotalProductos(int totalProductos) {
+        TotalProductos = totalProductos;
+    }
+
+    public String getAlmacenDeCompra() {
+        return AlmacenDeCompra;
+    }
+
+    public void setAlmacenDeCompra(String almacenDeCompra) {
+        AlmacenDeCompra = almacenDeCompra;
     }
 }

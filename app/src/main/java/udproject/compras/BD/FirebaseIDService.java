@@ -1,4 +1,4 @@
-package udproject.compras.firebase;
+package udproject.compras.BD;
 
 public class FirebaseIDService  {
 }

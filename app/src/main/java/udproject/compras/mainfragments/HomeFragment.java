@@ -1,16 +1,9 @@
 package udproject.compras.mainfragments;
 
-import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,37 +11,29 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import udproject.compras.Adapters.Item_Producto;
-import udproject.compras.DetallesProductos;
 import udproject.compras.FrDialog.IngresarPresupuesto;
 import udproject.compras.FrDialog.IngresarPorTexto;
+import udproject.compras.FrDialog.GuardarNombreDeLista;
 import udproject.compras.R;
 import udproject.compras.Recognition.Camara;
 import udproject.compras.Recognition.Voice;
-import udproject.compras.firebase.LocalDB;
+import udproject.compras.BD.LocalDB;
 import udproject.compras.recycler.RecyclerProductAdapter;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnProductListener, View.OnClickListener  {
 
@@ -73,7 +58,7 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
         RecyclerItemProductos=view.findViewById(R.id.RecyclerProductos);
         RecyclerItemProductos.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        SharedPreferences sharedPref = getContext().getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getContext().getSharedPreferences("CREDENCIALES", MODE_PRIVATE);
         String vid=sharedPref.getString("IDlista", "NO HAY NADA");
 
         LocalDB local=new LocalDB(getContext());
@@ -125,7 +110,6 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
             }
         };
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(RecyclerItemProductos);
-        System.out.println("OSU!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return view;
     }
 
@@ -167,17 +151,6 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
     }
 
 
-
-    private void GuardarL()
-    {
-        LocalDB localDB=new LocalDB(getContext());
-        SharedPreferences sharedPref = getContext().getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
-        String vid=sharedPref.getString("IDlista", "NO HAY NADA");
-        localDB.GuardarLista(vid);
-        Toast.makeText(getContext(), "Lista Guardada", Toast.LENGTH_LONG).show();
-    }
-
-
     @Override
     public void onProductClick(int posicion) {
 
@@ -188,7 +161,23 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
 
     }
 
+    private void EliminarL()
+    {
 
+        SharedPreferences sharedPref = getContext().getSharedPreferences("CREDENCIALES", Context.MODE_PRIVATE);
+        String idl=sharedPref.getString("IDlista", "NO HAY NADA");
+        LocalDB localDB=new LocalDB(getContext());
+        localDB.ifExist(idl);
+
+        SharedPreferences.Editor editor = getContext().getSharedPreferences("CREDENCIALES", MODE_PRIVATE).edit();
+        editor.clear().apply();
+
+
+        localDB.close();
+
+        getActivity().finish();
+
+    }
 
     @Override
     public void onClick(final View v) {
@@ -212,11 +201,12 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
                 startActivity(scanner);
                 break;
             case R.id.GuardarLista:
-                GuardarL();
+                DialogFragment fragmentNombre=new GuardarNombreDeLista();
+                fragmentNombre.show(getParentFragmentManager(), "a");
                 break;
-            /*case R.id.EliminarLista:
+            case R.id.EliminarLista:
                 EliminarL();
-                break;*/
+                break;
         }
     }
 }

@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -19,8 +17,7 @@ import java.util.List;
 import udproject.compras.Adapters.Item_Producto;
 import udproject.compras.DetallesProductos;
 import udproject.compras.R;
-import udproject.compras.firebase.LocalDB;
-import udproject.compras.mainfragments.HomeFragment;
+import udproject.compras.BD.LocalDB;
 
  public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProductAdapter.ViewHolder> {
 
@@ -130,6 +127,7 @@ import udproject.compras.mainfragments.HomeFragment;
         LocalDB localDB=new LocalDB(context);
         int ig=productoList.get(position).getID();
         localDB.EliminarProductoDeLista(ig);
+        localDB.close();
 
     }
     private void SetCantidad( int ID, int Cantidad, int precio){
@@ -148,7 +146,7 @@ import udproject.compras.mainfragments.HomeFragment;
         System.out.println(Name);
         String[] Palabras=Name.split("\\s+");
         String[] Productos={"Aceite", "Arroz", "Azucar", "Blanqueador", "Cafe", "Cereal", "Cerveza",
-                "Chocolate", "Desodorante", "Galletas", "Harina", "Leche", "Lentejas", "Mantequilla",
+                "Chocolate", "Desodorante", "Galletas", "galletas", "Harina", "Leche", "Lentejas", "Mantequilla",
                 "Gelatina", "Shampoo"};
         String NombreFinal="";
         for (int i=0;i<Palabras.length;i++)

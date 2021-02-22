@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -13,14 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import udproject.compras.Adapters.Item_Texto_Scanner;
 import udproject.compras.R;
-import udproject.compras.Recognition.Camara;
-import udproject.compras.firebase.LocalDB;
-import udproject.compras.mainfragments.ListasFragment;
+import udproject.compras.BD.LocalDB;
 
 public class RecyclerTextoEscaneado extends RecyclerView.Adapter<RecyclerTextoEscaneado.ViewHolder> {
 
@@ -96,9 +92,7 @@ public class RecyclerTextoEscaneado extends RecyclerView.Adapter<RecyclerTextoEs
                 }else if(counter==2){
                     Precio=texto_scannersList.get(position).getTexto();
                     System.out.println("asjdjadhb "+Nombre+"16546"+Precio+" ");
-                    Camara kca=new Camara();
                     Add(Nombre, Precio);
-
                 }
 
                 if (counter>=3){

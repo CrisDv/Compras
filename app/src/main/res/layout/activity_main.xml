@@ -4,12 +4,14 @@
 
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolnarNavInterfaz"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/ToolbarColor"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,50 +19,51 @@
         app:titleTextColor="#fff">
 
         <LinearLayout
-            android:weightSum="2"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <LinearLayout
-                android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="PRESUPUESTO"
-                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"/>
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:text="PRESUPUESTO" />
+
                 <TextView
                     android:id="@+id/presupuesto"
                     android:layout_width="match_parent"
-                    android:textStyle="bold"
-                    android:textSize="10pt"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-
-                    android:layout_height="match_parent" />
+                    android:textSize="10pt"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:gravity="center"
-                    android:text="GASTADO"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"/>
+                    android:layout_height="20dp"
+
+                    android:text="GASTADO" />
+
                 <TextView
                     android:id="@+id/presupuestoGastado"
                     android:layout_width="match_parent"
-                    android:textStyle="bold"
-                    android:textSize="10pt"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:layout_height="match_parent" />
+                    android:textSize="10pt"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
@@ -87,7 +90,7 @@
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-        <!--app:navGraph="@navigation/mobile_navigation"-->
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--app:navGraph="@navigation/mobile_navigation"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

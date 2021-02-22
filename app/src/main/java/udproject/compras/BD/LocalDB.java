@@ -1,4 +1,4 @@
-package udproject.compras.firebase;
+package udproject.compras.BD;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,55 +6,50 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-import androidx.core.database.sqlite.SQLiteDatabaseKt;
-
-import java.security.PublicKey;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLInput;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import udproject.compras.Adapters.Item_Producto;
 import udproject.compras.Adapters.item_ListaGuardada;
-import udproject.compras.mainfragments.HomeFragment;
-import udproject.compras.recycler.RecyclerProductAdapter;
 
 import static android.content.Context.MODE_PRIVATE;
-import static androidx.camera.core.CameraX.getContext;
 
 public class LocalDB extends SQLiteOpenHelper {
 
     private static final String Nombre_BD="BDListaLocal ";
-    private static final int Version_BD=3;
+    private static final int Version_BD=5;
 
     private static final String TABLA_LISTA = " CREATE TABLE MiLista" +
             "(" +
             "   Id_Lista VARCHAR(40) PRIMARY KEY NOT NULL,"+
-            "   Id_Producto INT,"+
-            "   PresupuestoInicial INT NOT NULL,"+
-            "   Name_Lista VARCHAR (15)," +
-            "   Fecha_Lista DATETIME NOT NULL," +
-            "   FOREIGN KEY (Id_Producto) REFERENCES Productos(Id_Producto)"+
+            "   PresupuestoInicial INT ,"+
+            "   Mes_Lista VARCHAR(12)" +
             ");";
 
     private static  final String TABLA_PRODUCTO ="CREATE TABLE Productos" +
             "(" +
             "    Id_Producto INT PRIMARY KEY NOT NULL," +
+            "    Id_Lista VARCHAR(40) NOT NULL,"+
             "    Name_Producto VARCHAR(50) NOT NULL," +
             "    Precio_Producto INT ," +
             "    PrecioUnitario INT NOT NULL,"+
-            "    Cantidad INT NOT NULL,"+
-            "    Marca varchar(20)"+
+            "    Cantidad INT NOT NULL," +
+            "    FOREIGN KEY (Id_Lista) REFERENCES MiLista(Id_Lista)"+
             ");";
 
     private static final String TABLA_GUARDADA="CREATE TABLE ListaGuardada" +
             "("+
             "    Id_Guardada VARCHAR(40) PRIMARY KEY NOT NULL," +
             "    Id_Lista VARCHAR(40),"+
+            "   Name_Lista VARCHAR (15)," +
+            "   Almacen VARCHAR (12),"+
             "    FOREIGN KEY (Id_Lista) REFERENCES MiLista(Id_Lista)"+
             ");";
 
@@ -87,13 +82,12 @@ public class LocalDB extends SQLiteOpenHelper {
 
     public void AgregarProducto(int id_product, String Nombre, int Precio, int Cantidad)
     {
-       /* SharedPreferences sharedPref = context.getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
-        String vid=sharedPref.getString("IDlista", "NO HAY NADA");*/
+        SharedPreferences sharedPref = context.getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
+        String vid=sharedPref.getString("IDlista", "NO HAY NADA");
         SQLiteDatabase BDAgregar=getWritableDatabase();
         if (BDAgregar!=null)
         {
-            BDAgregar.execSQL("INSERT INTO Productos (Id_Producto, Name_Producto, PrecioUnitario, Cantidad, Precio_Producto) VALUES ("+id_product+",'"+Nombre+"', "+Precio+", '"+Cantidad +"', "+Precio+");");
-            //BDAgregar.execSQL("INSERT INTO MiLista (Id_Producto) VALUES ("+id_product+") WHERE Id_Lista='"+vid+"'");
+            BDAgregar.execSQL("INSERT INTO Productos (Id_Producto, Name_Producto, PrecioUnitario, Cantidad, Precio_Producto, Id_Lista) VALUES ("+id_product+",'"+Nombre+"', "+Precio+", '"+Cantidad +"', "+Precio+", '"+vid+"');");
 
             BDAgregar.close();
         }
@@ -102,7 +96,7 @@ public class LocalDB extends SQLiteOpenHelper {
     public List<Item_Producto> ListaProducto(String idLista)
     {
         SQLiteDatabase BDReadProducto=getReadableDatabase();
-        Cursor cr=BDReadProducto.rawQuery("SELECT p.Id_Producto, p.Name_Producto,P.Precio_Producto , P.Cantidad, P.PrecioUnitario FROM Productos p, MiLista ML WHERE ML.Id_Lista='"+idLista+"';", null);
+        Cursor cr=BDReadProducto.rawQuery("SELECT Id_Producto, Name_Producto, Precio_Producto , Cantidad, PrecioUnitario FROM Productos WHERE Id_Lista='"+idLista+"' ;", null);
         //Cursor cr=BDReadProducto.rawQuery("SELECT p.Id_Producto, p.Name_Producto,P.Precio_Producto , P.Cantidad, P.PrecioUnitario FROM Productos p, MiLista ML WHERE ML.Id_Lista='A';", null);
 
         List<Item_Producto> productoList=new ArrayList<>();
@@ -122,27 +116,29 @@ public class LocalDB extends SQLiteOpenHelper {
         return productoList;
     }
 
-    public void GuardarLista(String IDLista)
+    public void GuardarLista(String IDLista, String Nombre, String Almacen)
     {
         String IDGUARDADA=UUID.randomUUID().toString();
         SQLiteDatabase BDAgregar=getWritableDatabase();
         if (BDAgregar!=null)
         {
-            BDAgregar.execSQL("INSERT INTO ListaGuardada (Id_Guardada, Id_Lista) VALUES ('"+IDGUARDADA+"', '"+IDLista+"')");
+            BDAgregar.execSQL("INSERT INTO ListaGuardada (Id_Guardada, Id_Lista, Name_Lista, Almacen) VALUES ('"+IDLista+"', '"+IDLista+"', '"+Nombre+"', '"+Almacen+"');");
 
             BDAgregar.close();
         }
     }
 
+
+
     public List<item_ListaGuardada> ListaGuardada(){
 
         SQLiteDatabase insertarLista=getReadableDatabase();
         //Cursor cursor=insertarLista.rawQuery("SELECT L.Name_Lista, L.PresupuestoInicial, L.Id_Lista FROM MiLista L, ListaGuardada G where G.Id_Guardada ="+idguardada+"; ", null);
-        Cursor cursor=insertarLista.rawQuery("SELECT L.Name_Lista, L.PresupuestoInicial, L.Id_Lista FROM MiLista L, ListaGuardada G ; ", null);
+        Cursor cursor=insertarLista.rawQuery("SELECT G.Name_Lista, G.Id_Lista, L.PresupuestoInicial, G.Almacen FROM MiLista L, ListaGuardada G where G.Id_Lista=L.Id_Lista; ", null);
         List<item_ListaGuardada> guardada=new ArrayList<>();
         try{
             while (cursor.moveToNext()){
-                guardada.add(new item_ListaGuardada(cursor.getString(1), cursor.getInt(2), cursor.getString(3)));
+                guardada.add(new item_ListaGuardada(cursor.getString(0), cursor.getString(1), cursor.getInt(2), 0, cursor.getString(3)));
             }
         }catch (Exception e){
             System.out.println("ERROR BD LISTAGUARDAD: "+e);
@@ -151,10 +147,22 @@ public class LocalDB extends SQLiteOpenHelper {
         return guardada;
     }
 
+    public void Productos (String id){
+        SQLiteDatabase readSQL=getReadableDatabase();
+        Cursor cursor=readSQL.rawQuery("SELECT Id_Producto, Name_Producto,Precio_Producto , Cantidad, PrecioUnitario FROM Productos  WHERE Id_Lista='"+id+"'; ", null);
+
+        while (cursor.moveToNext()){
+            System.out.println(cursor.getString(0)+ " "+cursor.getString(1));
+        }
+    }
+
     public int CantidadGastada(){
+        SharedPreferences sharedPref = context.getSharedPreferences("CREDENCIALES",Context.MODE_PRIVATE);
+        String vid=sharedPref.getString("IDlista", "NO HAY NADA");
+
         SQLiteDatabase read=getReadableDatabase();
         int total=0;
-        Cursor cursor=read.rawQuery("SELECT SUM(Precio_Producto) FROM Productos",null);
+        Cursor cursor=read.rawQuery("SELECT SUM(Precio_Producto) FROM Productos WHERE Id_Lista='"+vid+"' ",null);
 
         while (cursor.moveToNext()){
             total=cursor.getInt(0);
@@ -164,15 +172,10 @@ public class LocalDB extends SQLiteOpenHelper {
         return total;
     }
 
-    public boolean ifExist()
+    public void ifExist(String id)
     {
-        SQLiteDatabase bdCheck=getReadableDatabase();
-        Cursor cr=bdCheck.rawQuery("SELECT Id_Lista from MiLista;", null);
-        boolean is=cr.moveToFirst();
-        
-        bdCheck.close();
-        return is;
-
+        SQLiteDatabase db=getWritableDatabase();
+        //db.execSQL("DROP ");
     }
 
     public void AgregarALista(int Presupuesto){
@@ -182,16 +185,33 @@ public class LocalDB extends SQLiteOpenHelper {
         SharedPreferences shared = context.getSharedPreferences("CREDENCIALES", MODE_PRIVATE);
         SharedPreferences.Editor editor = shared.edit();
         editor.putString("IDlista", IDLista);
+        SQLiteDatabase BDCrear=getWritableDatabase();
+
+        Calendar calendar=Calendar.getInstance();
+
+        String meses[] = {
+                "Enero",
+                "Febrero",
+                "Marzo",
+                "Abril",
+                "Mayo",
+                "Junio",
+                "Julio",
+                "Agosto",
+                "Septiembre",
+                "Octubre",
+                "Noviembre",
+                "Diciembre"};
+
+        editor.putString("Mes", meses[calendar.get(Calendar.MONTH)]);
         editor.commit();
 
-        SQLiteDatabase BDCrear=getWritableDatabase();
-        Date thisDate=new Date();
+
         if (BDCrear!=null){
-            BDCrear.execSQL("INSERT INTO MiLista (Id_Lista, PresupuestoInicial, Fecha_Lista) VALUES ('"+IDLista+"', "+Presupuesto+", '"+thisDate+"')");
+            BDCrear.execSQL("INSERT INTO MiLista (Id_Lista, PresupuestoInicial, Mes_Lista) VALUES ('"+IDLista+"', "+Presupuesto+", '"+meses[calendar.get(Calendar.MONTH)] +"')");
 
             BDCrear.close();
         }
-        ifExist();
     }
 
     public int PrecioUnitario(int ID){
@@ -214,5 +234,23 @@ public class LocalDB extends SQLiteOpenHelper {
             deleteProduct.execSQL(SQL);
         }
         deleteProduct.close();
+    }
+
+    public int Sugerido(){
+        SQLiteDatabase BDCrear=getReadableDatabase();
+        Cursor cr=BDCrear.rawQuery("SELECT SUM(PresupuestoInicial) FROM MiLista", null);
+        Cursor cr2=BDCrear.rawQuery("SELECT count(PresupuestoInicial) FROM MiLista", null);
+        int Presupuesto=0, numRegistros=0, Promedio;
+
+
+        while (cr.moveToNext()){
+            Presupuesto=cr.getInt(0);
+        }
+
+        while (cr2.moveToNext()){
+            numRegistros=cr2.getInt(0);
+        }
+        Promedio=Presupuesto/numRegistros;
+        return Promedio;
     }
 }

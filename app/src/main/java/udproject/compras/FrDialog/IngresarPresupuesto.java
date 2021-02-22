@@ -13,13 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import udproject.compras.ConversionLetras;
-import udproject.compras.CreacionLista;
 import udproject.compras.MainActivity;
 import udproject.compras.R;
-import udproject.compras.firebase.LocalDB;
+import udproject.compras.BD.LocalDB;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -30,6 +28,11 @@ public class IngresarPresupuesto extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         view=inflater.inflate(R.layout.dialog_escribir_presupuesto, container, false);
+        LocalDB local=new LocalDB(getActivity());
+
+        System.out.println(String.valueOf(local.Sugerido())+"yoasobi");
+        TextView sugerido=view.findViewById(R.id.PresupuestoSugerido);
+        sugerido.setText("De acuerdo a tus listas, te sugerimos este presupuesto"+String.valueOf(local.Sugerido()));
         return view;
     }
 
@@ -40,14 +43,20 @@ public class IngresarPresupuesto extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
+
+
+
         builder.setView(inflater.inflate(R.layout.dialog_escribir_presupuesto, null))
                 // Add action buttons
                 .setPositiveButton(R.string.ACEPTAR, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         EditText Cant=getDialog().findViewById(R.id.create_presupuesto);
+
                         //TextView TextPresupuesto=getActivity().findViewById(R.id.cantidad_presupuesto);
                         String Valor=Cant.getText().toString();
+
+
                         if (Cant.getText().toString().equals(" "))
                         {
                             //Toast.makeText(getActivity(), "INGRESA UN PRESUPUESTO VALIDO", Toast.LENGTH_LONG).show();
@@ -55,14 +64,16 @@ public class IngresarPresupuesto extends DialogFragment {
                         else
                         {
                             //textChange(TextPresupuesto, Valor);
-
+                            LocalDB local=new LocalDB(getActivity());
                             SharedPreferences shared = getActivity().getSharedPreferences("CREDENCIALES", MODE_PRIVATE);
                             SharedPreferences.Editor editor = shared.edit();
                             editor.putString("Presupuesto", Valor);
                             editor.commit();
 
-                            LocalDB local=new LocalDB(getActivity());
+
+
                             local.AgregarALista(Integer.parseInt(Valor));
+
 
                             Intent intent=new Intent(getContext(), MainActivity.class);
                             startActivity(intent);

@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import udproject.compras.R;
-import udproject.compras.firebase.Realtimepst;
+import udproject.compras.BD.Realtimepst;
 
 public class CuentaFragment extends Fragment {
 
@@ -141,7 +141,7 @@ public class CuentaFragment extends Fragment {
         Glide.with(view).load(user.getPhotoUrl()).into(imgProfile);
         Nombre.setText(user.getDisplayName());
         Mail.setText(user.getEmail());
-        Realtimepst rs=new Realtimepst();
+        Realtimepst rs=new Realtimepst(getContext());
         rs.CrearUsuario();
 
         logg.setVisibility(View.GONE);

@@ -9,7 +9,11 @@
         <LinearLayout
             android:weightSum="2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginRight="20px"
+            android:layout_marginLeft="20px"
+
+            android:background="@drawable/item_design">
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_weight="0.7"

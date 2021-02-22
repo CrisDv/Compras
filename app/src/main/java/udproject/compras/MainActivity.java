@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,8 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import udproject.compras.FrDialog.EditarPresupuesto;
-import udproject.compras.FrDialog.IngresarPresupuesto;
-import udproject.compras.firebase.LocalDB;
+import udproject.compras.BD.LocalDB;
 import udproject.compras.mainfragments.ListasFragment;
 import udproject.compras.mainfragments.HomeFragment;
 import udproject.compras.mainfragments.CuentaFragment;
@@ -66,7 +65,7 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.maintoolbar, menu);
+        getMenuInflater().inflate(R.menu.option_menu, menu);
         return true;
     }
 
@@ -78,6 +77,9 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
                 startActivity(i);*/
                 DialogFragment newFragment=new EditarPresupuesto();
                 newFragment.show(getSupportFragmentManager(), "xde");
+                break;
+            case R.id.About:
+                Toast.makeText(this, "Opcion1", Toast.LENGTH_LONG).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
