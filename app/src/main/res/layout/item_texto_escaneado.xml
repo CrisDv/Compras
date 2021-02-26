@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#C51A1A"
+    android:orientation="horizontal">
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/check"
         android:layout_width="60dp"
-        android:layout_height="60dp"/>
+        android:layout_height="60dp"
+        android:background="#C51A1A" />
+
     <TextView
         android:id="@+id/TextoDeCamara"
-        android:text="@string/app_name"
-        android:textSize="9pt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="#A82626"
+        android:fontFamily="serif"
+        android:text="@string/app_name"
+        android:textColor="#FFF"
+        android:textSize="18sp" />
 </LinearLayout>

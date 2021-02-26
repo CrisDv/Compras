@@ -31,8 +31,8 @@ public class IngresarPresupuesto extends DialogFragment {
         LocalDB local=new LocalDB(getActivity());
 
         System.out.println(String.valueOf(local.Sugerido())+"yoasobi");
-        TextView sugerido=view.findViewById(R.id.PresupuestoSugerido);
-        sugerido.setText("De acuerdo a tus listas, te sugerimos este presupuesto"+String.valueOf(local.Sugerido()));
+       /* TextView sugerido=view.findViewById(R.id.PresupuestoSugerido);
+        sugerido.setText("De acuerdo a tus listas, te sugerimos este presupuesto"+String.valueOf(local.Sugerido()));*/
         return view;
     }
 
@@ -42,9 +42,7 @@ public class IngresarPresupuesto extends DialogFragment {
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-
-
+        // Pass null as the parent view because its going in the dialog layou
 
         builder.setView(inflater.inflate(R.layout.dialog_escribir_presupuesto, null))
                 // Add action buttons

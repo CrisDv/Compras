@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
     android:layout_height="wrap_content"
+    android:background="#CA1A1A"
     android:orientation="vertical"
     tools:context=".FrDialog.IngresarPresupuesto">
 
@@ -15,13 +16,17 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-
-        android:text="ESCRIBE TU PRESUPUESTO"/>
+        android:fontFamily="serif"
+        android:text="ESCRIBE TU PRESUPUESTO"
+        android:textColor="#FFF"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/PresupuestoSugerido"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:fontFamily="serif"
+        android:textColor="#FFF"/>
 
     <EditText
         android:id="@+id/create_presupuesto"
@@ -31,6 +36,8 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="#F4EEEE"
         android:fontFamily="serif"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textColor="#FFF" />
 </LinearLayout>

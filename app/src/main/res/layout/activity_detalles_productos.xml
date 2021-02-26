@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#151515"
+    android:background="#FFEB3B"
     android:orientation="vertical"
     tools:context=".DetallesProductos">
 
@@ -14,7 +14,9 @@
         android:layout_height="70dp"
         android:background="#FFEB3B"
         android:gravity="center"
-        android:textSize="10pt" />
+        android:textSize="10pt"
+        android:textColor="#000"
+        android:fontFamily="serif"/>
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/GraficaProductos"

@@ -173,12 +173,15 @@ public class HomeFragment extends Fragment implements RecyclerProductAdapter.OnP
         editor.clear().apply();
 
 
+
         localDB.close();
 
         getActivity().finish();
 
     }
-
+    public void UpdateRecycler(){
+        RecyclerItemProductos.getAdapter().notifyDataSetChanged();
+    }
     @Override
     public void onClick(final View v) {
         switch (v.getId()){

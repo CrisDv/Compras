@@ -18,13 +18,14 @@ import java.util.UUID;
 
 import udproject.compras.Adapters.Item_Producto;
 import udproject.compras.Adapters.item_ListaGuardada;
+import udproject.compras.mainfragments.HomeFragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class LocalDB extends SQLiteOpenHelper {
 
     private static final String Nombre_BD="BDListaLocal ";
-    private static final int Version_BD=5;
+    private static final int Version_BD=6;
 
     private static final String TABLA_LISTA = " CREATE TABLE MiLista" +
             "(" +
@@ -91,6 +92,9 @@ public class LocalDB extends SQLiteOpenHelper {
 
             BDAgregar.close();
         }
+
+        HomeFragment homeFragment=new HomeFragment();
+        homeFragment.UpdateRecycler();
     }
 
     public List<Item_Producto> ListaProducto(String idLista)
@@ -146,6 +150,64 @@ public class LocalDB extends SQLiteOpenHelper {
 
         return guardada;
     }
+//CHART DETALLES DEL PRODUCTO
+
+    public String NombredeLista(String Nname)
+    {
+        SQLiteDatabase db=getReadableDatabase();
+        String Nombre="";
+        Cursor cursor=db.rawQuery("SELECT LG.Almacen FROM ListaGuardada LG JOIN Productos PR ON PR.Id_Lista=LG.Id_Lista WHERE PR.Name_Producto LIKE '"+Nname+"'", null);
+
+        while ((cursor.moveToNext())){
+            Nombre=cursor.getString(0);
+        }
+db.close();
+        return Nombre;
+    }
+
+
+
+    public ArrayList<String> PrecioProductoNombre(String Nombre)
+    {
+        SQLiteDatabase db=getReadableDatabase();
+        ArrayList<String> Productos=new ArrayList<>();
+        Cursor cursor=db.rawQuery("SELECT PrecioUnitario FROM Productos WHERE Name_Producto LIKE '%"+Nombre+"%'; ", null);
+
+        while ((cursor.moveToNext())){
+            Productos.add(cursor.getString(0));
+        }
+        db.close();
+        return Productos;
+    }
+
+    //CCHART CUENTA FRAGMENT
+    public ArrayList<String> Meses()
+    {
+        SQLiteDatabase db=getReadableDatabase();
+        ArrayList<String> meses=new ArrayList<>();
+        Cursor cursor=db.rawQuery("SELECT Mes_Lista FROM MiLista ", null);
+
+        while ((cursor.moveToNext())){
+            meses.add(cursor.getString(0));
+        }
+        db.close();
+        return meses;
+    }
+
+    public String Presupuestos(String mes){
+        SQLiteDatabase db=getReadableDatabase();
+        String PresupuestosList="";
+        Cursor cursor=db.rawQuery("SELECT SUM(PresupuestoInicial) FROM MiLista WHERE Mes_Lista='"+mes+"';  ", null);
+
+        while ((cursor.moveToNext())){
+            PresupuestosList=cursor.getString(0);
+        }
+        db.close();
+        return PresupuestosList;
+
+
+    }
+
 
     public void Productos (String id){
         SQLiteDatabase readSQL=getReadableDatabase();
@@ -175,7 +237,9 @@ public class LocalDB extends SQLiteOpenHelper {
     public void ifExist(String id)
     {
         SQLiteDatabase db=getWritableDatabase();
-        //db.execSQL("DROP ");
+        db.execSQL("DELETE FROM MiLista WHERE Id_Lista='"+id+"';");
+        db.execSQL("DELETE FROM Productos WHERE Id_Lista='"+id+"'");
+        db.close();
     }
 
     public void AgregarALista(int Presupuesto){
@@ -214,6 +278,29 @@ public class LocalDB extends SQLiteOpenHelper {
         }
     }
 
+    public void GuardarListaFirebase(String id, String Presupuesto, String mes, String Almacen, String Nombre)
+    {
+        String IDward = UUID.randomUUID().toString();
+        SQLiteDatabase sqLiteDatabase=getWritableDatabase();
+        int pr=Integer.parseInt(Presupuesto);
+        sqLiteDatabase.execSQL("INSERT INTO MiLista (Id_Lista, PresupuestoInicial, Mes_Lista) " +
+                "VALUES ('"+id+"', "+pr+", '"+mes+"')");
+        sqLiteDatabase.execSQL("INSERT INTO ListaGuardada(Id_Guardada, Id_Lista, Name_Lista, Almacen)" +
+                "VALUES ('"+IDward+"', '"+id+"', '"+Nombre+"', '"+Almacen+"')");
+
+        sqLiteDatabase.close();
+    }
+
+    public void GuardarProductosFirebase(String idLista, String Nombre, String Precio){
+        int IDproducto= (int) (Math.floor(Math.random() * (5000 - 1)) + 1);
+        int PrecioUni=Integer.parseInt(Precio);
+        SQLiteDatabase db=getWritableDatabase();
+
+        db.execSQL("INSERT INTO Productos (Id_Producto, Id_Lista, Name_Producto, PrecioUnitario, Cantidad)" +
+                "VALUES ("+IDproducto+", '"+idLista+"', '"+Nombre+"', "+PrecioUni+", 1)");
+        db.close();
+    }
+
     public int PrecioUnitario(int ID){
         SQLiteDatabase BDCrear=getReadableDatabase();
         Cursor cr=BDCrear.rawQuery("SELECT PrecioUnitario FROM Productos WHERE Id_Producto="+ID+";", null);
@@ -250,7 +337,15 @@ public class LocalDB extends SQLiteOpenHelper {
         while (cr2.moveToNext()){
             numRegistros=cr2.getInt(0);
         }
-        Promedio=Presupuesto/numRegistros;
+        if (numRegistros==0)
+        {
+            return 0;
+        }
+        else {
+            Promedio=Presupuesto/numRegistros;
+        }
         return Promedio;
     }
+
+
 }

@@ -20,13 +20,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".DetallesProductos"></activity>
+        <activity android:name=".menubar.ComportamientoPresupuestos"></activity>
+        <activity android:name=".menubar.ConfiguracionDeCuenta" />
+        <activity android:name=".menubar.ListasGuardadas" />
+        <activity android:name=".menubar.AboutActivity" />
+        <activity android:name=".DetallesProductos" />
         <activity android:name=".Recognition.Camara" />
         <activity android:name=".Recognition.Voice" />
         <activity android:name=".FrDialog.IngresarPorTexto" />
         <activity android:name=".FrDialog.IngresarPresupuesto" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".CreacionLista" />
+        <activity
+            android:name=".CreacionLista"
+            android:theme="@style/ThemeFull" />
         <activity
             android:name=".Recognition.CameraScanner"
             android:configChanges="orientation|keyboardHidden|screenSize"

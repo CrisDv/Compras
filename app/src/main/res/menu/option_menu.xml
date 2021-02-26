@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item android:id="@+id/cantidad_presupuesto" android:title="Editar Presupuesto"></item>
+    <item android:id="@+id/Presupuestos" android:title="Comportamiento de presupuestos"></item>
+    <item android:id="@+id/Listas" android:title="Listas Guardadas"></item>
     <item android:id="@+id/About" android:title="Sobre la App"></item>
-    <item android:id="@+id/Presupuestos" android:title="Seguimiento de presupuestos"></item>
+    <item android:id="@+id/CuentaOptionMenu" android:title="Configuracion de cuenta"></item>
 
 </menu>

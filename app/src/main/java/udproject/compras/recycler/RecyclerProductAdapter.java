@@ -16,8 +16,10 @@ import java.util.List;
 
 import udproject.compras.Adapters.Item_Producto;
 import udproject.compras.DetallesProductos;
+import udproject.compras.MainActivity;
 import udproject.compras.R;
 import udproject.compras.BD.LocalDB;
+import udproject.compras.mainfragments.HomeFragment;
 
  public class RecyclerProductAdapter extends RecyclerView.Adapter<RecyclerProductAdapter.ViewHolder> {
 
@@ -120,16 +122,17 @@ import udproject.compras.BD.LocalDB;
 
     public void Elimina(int position)
     {
-        productoList.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, productoList.size());
-
         LocalDB localDB=new LocalDB(context);
         int ig=productoList.get(position).getID();
         localDB.EliminarProductoDeLista(ig);
         localDB.close();
 
+        productoList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, productoList.size());
     }
+
+
     private void SetCantidad( int ID, int Cantidad, int precio){
         LocalDB localDB=new LocalDB(context);
 

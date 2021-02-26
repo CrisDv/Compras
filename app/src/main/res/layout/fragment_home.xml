@@ -23,14 +23,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/guardar_lista" />
+            android:background="@drawable/botonradius"
+            android:backgroundTint="#5365CA"
+            android:fontFamily="serif"
+            android:text="@string/guardar_lista"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/EliminarLista"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/eliminar_lista" />
+            android:background="@drawable/botonradius"
+            android:backgroundTint="#5365CA"
+            android:fontFamily="serif"
+            android:text="@string/eliminar_lista"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -45,6 +53,7 @@
         android:layout_marginTop="65dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="18dp"
+
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -62,7 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="0dp"
-            android:layout_marginBottom="72dp">
+            android:layout_marginBottom="72dp"
+            >
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/IngresarPorScanner"

@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainfragments.ListasFragment">
+    tools:context=".menubar.ComportamientoPresupuestos">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerListasGuardadas"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineMenuData"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF" />
+        android:layout_height="200dp"
+        android:background="#FFEB3B"
+        />
 </LinearLayout>

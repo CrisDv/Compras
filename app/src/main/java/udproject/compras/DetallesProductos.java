@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import udproject.compras.BD.LocalDB;
+
 public class DetallesProductos extends AppCompatActivity {
 
 
@@ -40,13 +42,13 @@ public class DetallesProductos extends AppCompatActivity {
         barChart=findViewById(R.id.GraficaProductos);
         Marca=findViewById(R.id.TipoDeMarca);
         Nombre=getIntent().getStringExtra("NombreProducto");
-        InfoProducto(Nombre);
-        //showBarChart();
+        //InfoProducto(Nombre);
+        showBarChart(Nombre);
     }
 
 
 
-    public void InfoProducto(String ChildItem){
+    /*public void InfoProducto(String ChildItem){
 
         DatabaseReference mReference= FirebaseDatabase.getInstance().getReference();
         System.out.println(ChildItem+"hmm");
@@ -77,28 +79,35 @@ public class DetallesProductos extends AppCompatActivity {
 
                 }
             });
-    }
+    }*/
 
-    private void showBarChart(ArrayList<String> Productos, ArrayList<String> Valor, String Titulo){
-        ArrayList<Double> valueList = new ArrayList<Double>();
+    private void showBarChart( String Titulo){
         ArrayList<BarEntry> entries = new ArrayList<>();
         String title = "Title";
 
-        Marca.setText(Titulo+" Por Marca");
-        //input data
-        for(int i = 0; i < 6; i++){
-            valueList.add(i * 100.1);
+        LocalDB localDB=new LocalDB(this);
+        ArrayList<String> precios=localDB.PrecioProductoNombre(Titulo);
+        ArrayList<String> Almacenes=new ArrayList<>();
+
+        for (int i=0;i<precios.size();i++){
+            Almacenes.add(localDB.NombredeLista(Titulo));
         }
 
+        Marca.setText(Titulo+" de acuerdo a tus listas");
+        //input data
+
+
         //fit the data into a bar
-        for (int i = 0; i < Productos.size(); i++) {
-            BarEntry barEntry = new BarEntry(i,Float.parseFloat(Valor.get(i)));
+        for (int i = 0; i < precios.size(); i++) {
+            BarEntry barEntry = new BarEntry(i,Float.parseFloat(precios.get(i)));
             entries.add(barEntry);
         }
 
+
+
         BarDataSet barDataSet = new BarDataSet(entries, title);
 
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(Productos));
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(Almacenes));
 
         BarData data = new BarData(barDataSet);
         barChart.setData(data);

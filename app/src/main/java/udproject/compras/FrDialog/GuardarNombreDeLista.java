@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +51,11 @@ public class GuardarNombreDeLista extends DialogFragment {
                             String idl=sharedPref.getString("IDlista", "NO HAY NADA");
                             String Presupuesto=sharedPref.getString("Presupuesto", "nel");
                             String Mes=sharedPref.getString("Mes", "nel");
-                            Realtimepst realtimepst=new Realtimepst(getContext());
-                            realtimepst.IngresarLista(idl, valNombre, Almacentext, Presupuesto, Mes);
+                            FirebaseAuth ma=FirebaseAuth.getInstance();
+                            if (ma.getCurrentUser()!=null){
+                                Realtimepst realtimepst=new Realtimepst(getContext());
+                                realtimepst.IngresarLista(idl, valNombre, Almacentext, Presupuesto, Mes);
+                            }
                             localDB.GuardarLista(idl, valNombre, Almacentext);
                             Toast.makeText(getContext(), "Lista Guardada", Toast.LENGTH_LONG).show();
                         }

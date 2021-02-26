@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import udproject.compras.R;
 import udproject.compras.BD.LocalDB;
+import udproject.compras.recycler.RecyclerProductAdapter;
 
     public class IngresarPorTexto extends DialogFragment {
 
@@ -60,6 +61,9 @@ import udproject.compras.BD.LocalDB;
         LocalDB localDB=new LocalDB(getContext());
         int IDRandom= (int) (Math.floor(Math.random() * (5000 - 1)) + 1);//Math.floor(Math.random() * (max - min)) + min;
 
+
+
+
         try {
 
             //localDB.AgregarProducto(IDRandom, Nombre.getText().toString(), Integer.parseInt(Precio.getText().toString()), Integer.parseInt(Cantidad.getText().toString()));
@@ -70,5 +74,7 @@ import udproject.compras.BD.LocalDB;
         {
             System.out.println("ERROR EN:"+ e);
         }
+
     }
+
     }

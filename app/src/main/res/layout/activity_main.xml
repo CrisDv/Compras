@@ -5,13 +5,13 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#A12121">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolnarNavInterfaz"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-
+        android:background="#BC0B26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,14 +33,21 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
+                    android:background="#AF1A1A"
+                    android:backgroundTint="#B81818"
+                    android:fontFamily="serif"
                     android:gravity="center"
-                    android:text="PRESUPUESTO" />
+                    android:text="PRESUPUESTO"
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/presupuesto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="serif"
                     android:gravity="center"
+                    android:textColor="#FFF"
                     android:textSize="10pt"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -55,13 +62,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
 
-                    android:text="GASTADO" />
+                    android:background="#BC2121"
+                    android:backgroundTint="#C51E1E"
+                    android:fontFamily="serif"
+                    android:gravity="center"
+                    android:text="GASTADO"
+                    android:textColor="#FFF"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/presupuestoGastado"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="serif"
                     android:gravity="center"
+                    android:textColor="#FFF"
                     android:textSize="10pt"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -87,6 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
+        android:background="#FDFCF9"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

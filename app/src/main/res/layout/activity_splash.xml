@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#FBE49C"
     android:backgroundTint="@color/cardview_light_background"
     tools:context=".Splash">
 
@@ -12,7 +12,7 @@
         android:id="@+id/ImagenInicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#8A8A8A"
+        android:background="#CD1D1D"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.177"

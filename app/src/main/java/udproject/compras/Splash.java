@@ -17,7 +17,7 @@ public class Splash extends AppCompatActivity {
 
         ImageView img=findViewById(R.id.ImagenInicio);
 
-        img.setImageResource(R.drawable.photo4951865291495811277);
+        img.setImageResource(R.drawable.iconoapp);
 
         new Handler().postDelayed(() -> {
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import udproject.compras.Adapters.item_ListaGuardada;
+import udproject.compras.ConversionLetras;
 import udproject.compras.R;
 import udproject.compras.BD.LocalDB;
 
@@ -26,7 +27,7 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
     private Context context;
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
-        TextView TituloLista, CantPresupuesto, CantProductos;
+        TextView TituloLista, CantPresupuesto, Almacen;
 
         //ShimmerFrameLayout shimmerFrameLayout;
 
@@ -38,7 +39,7 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
           //  shimmerFrameLayout=itemView.findViewById(R.id.shimerItemHistorial);
             TituloLista=itemView.findViewById(R.id.TituloLista);
             CantPresupuesto=itemView.findViewById(R.id.PresupuestoListaGuardada);
-
+            Almacen=itemView.findViewById(R.id.AlmacenGuardado);
             this.onItemListener=onItemListener;
             itemView.setOnClickListener(this);
 
@@ -70,8 +71,10 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ConversionLetras conversionLetras=new ConversionLetras();
         holder.TituloLista.setText(ItemListaGuardada.get(position).getNombreLista());
-        holder.CantPresupuesto.setText(String.valueOf(ItemListaGuardada.get(position).getPresupuestoInicial()));
+        holder.CantPresupuesto.setText("$"+conversionLetras.SeparadorFormat(String.valueOf(ItemListaGuardada.get(position).getPresupuestoInicial())));
+        holder.Almacen.setText(ItemListaGuardada.get(position).getAlmacenDeCompra());
 
     }
 

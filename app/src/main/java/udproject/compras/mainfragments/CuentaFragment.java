@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,10 +29,16 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import udproject.compras.BD.LocalDB;
 import udproject.compras.R;
 import udproject.compras.BD.Realtimepst;
 
@@ -82,8 +90,9 @@ public class CuentaFragment extends Fragment {
         });*/
         mAuth=FirebaseAuth.getInstance();
 
-        lineChart=view.findViewById(R.id.ChartLine);
+        lineChart=view.findViewById(R.id.ChartLineLogin);
         ChartData();
+
         return view;
     }
 
@@ -143,6 +152,7 @@ public class CuentaFragment extends Fragment {
         Mail.setText(user.getEmail());
         Realtimepst rs=new Realtimepst(getContext());
         rs.CrearUsuario();
+            rs.BackUpListas();
 
         logg.setVisibility(View.GONE);
         FailData.setVisibility(View.GONE);
@@ -152,14 +162,24 @@ public class CuentaFragment extends Fragment {
     private void ChartData()
     {
         // Creamos un set de datos
-        ArrayList<Entry> lineEntries = new ArrayList<Entry>();
-        String meses[]={"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
-        for (int i = 0; i<11; i++){
-            float y = (int) (Math.random() * (80000 - 20000 + 1) + 20000);
-            lineEntries.add(new Entry((float)i,y ));
+       ArrayList<Entry> lineEntries = new ArrayList<Entry>();
+        LocalDB localDB=new LocalDB(getContext());
+        String Nombre="";
+        ArrayList<String> meses=localDB.Meses();
+        ArrayList<String> valor=new ArrayList<String>();
+
+        for (int i=0;i<meses.size();i++){
+            valor.add(localDB.Presupuestos(meses.get(i)));
         }
 
 
+        for (int i = 0; i<meses.size(); i++){
+
+           // float y = (int) (Math.random() * (40000 - 20000 + 1) + 20000);
+            lineEntries.add(new Entry((float)i,Float.parseFloat(valor.get(i)) ));
+        }
+
+        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(meses));
 
 // Unimos los datos al data set
         lineDataSet = new LineDataSet(lineEntries, "Dinero en Compras");
@@ -167,6 +187,14 @@ public class CuentaFragment extends Fragment {
 // Asociamos al gráfico
         LineData lineData = new LineData();
         lineData.addDataSet(lineDataSet);
-        lineChart.setData(lineData);
+        lineChart.getDescription().setEnabled(false);
+        //lineChart.setData(lineData);
+
+        if (lineEntries.isEmpty()) {
+            lineChart.clear();
+        } else {
+            // set data
+            lineChart.setData(lineData);
+        }
     }
 }

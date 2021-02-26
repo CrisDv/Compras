@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1CA8A"
+    android:orientation="vertical"
+    tools:context=".menubar.ConfiguracionDeCuenta">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="#101010"
+        android:text="Modificar Nombre"
+        android:textColor="#FFF"
+        android:fontFamily="serif"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="#151414"
+        android:textColor="#FFF"
+        android:fontFamily="serif"/>
+
+    <Button
+        android:id="@+id/CerrarSesion"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/botonradius"
+        android:backgroundTint="#C81E1E"
+        android:fontFamily="serif"
+        android:text="CERRAR SESION"
+        android:textColor="#FFF" />
+
+    <Button
+        android:id="@+id/EliminarCuenta"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="@drawable/botonradius"
+        android:backgroundTint="#B12323"
+        android:fontFamily="serif"
+        android:text="ELIMINAR CUENTA"
+        android:textColor="#FFF" />
+</LinearLayout>

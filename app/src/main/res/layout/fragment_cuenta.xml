@@ -18,7 +18,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ProfileImg"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:background="#3F51B5" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,18 +30,27 @@
                 android:id="@+id/MailUser"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:background="#B61212"
+                android:fontFamily="serif"
+                android:textColor="#FFF"
                 android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/NameUser"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:background="#B61212"
+                android:fontFamily="serif"
+                android:textColor="#FFF"
                 android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/TotalCompras"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:background="#B61212"
+                android:fontFamily="serif"
+                android:textColor="#FFF"
                 android:textSize="20dp" />
         </LinearLayout>
     </LinearLayout>
@@ -56,13 +66,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/TextoVacio"
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/ChartLine"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/AnuncioIniciodeSesion"
-            android:textSize="10pt" />
+            android:layout_height="200dp"/>
     </LinearLayout>
 
 
@@ -78,10 +85,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/ChartLine"
+            android:id="@+id/ChartLineLogin"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
     </LinearLayout>
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/loguear"
         android:layout_width="match_parent"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1E8CC"
     android:orientation="vertical"
     tools:context=".Recognition.Camara">
 
@@ -51,6 +52,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/botonradius"
+            android:backgroundTint="#BF1E1E"
+            android:textColor="#FFF"
             android:fontFamily="serif"
             android:text="@string/tomar_foto" />
 
@@ -59,6 +63,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/botonradius"
+            android:backgroundTint="#BD1C1C"
+            android:textColor="#FFF"
             android:fontFamily="serif"
             android:text="Guardar Seleccion" />
 
@@ -67,7 +74,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/botonradius"
+            android:backgroundTint="#C31919"
             android:fontFamily="serif"
+            android:textColor="#FFF"
             android:text="@string/escaneartexto" />
     </LinearLayout>
 
