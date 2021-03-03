@@ -1,9 +1,12 @@
 package udproject.compras.FrDialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 
@@ -12,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import udproject.compras.BD.LocalDB;
 import udproject.compras.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -36,8 +40,13 @@ public class EditarPresupuesto extends DialogFragment {
 
                         SharedPreferences sharedPref = getContext().getSharedPreferences("CREDENCIALES", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString("PresupuestoEditado", val);
+                        editor.putString("Presupuesto", val);
                         editor.commit();
+
+                        String idl=sharedPref.getString("IDlista", "NO HAY NADA");
+                        LocalDB localDB=new LocalDB(getContext());
+                        localDB.ActualizarPresupuesto(idl, Integer.parseInt(val));
+
 
                     }
                 })

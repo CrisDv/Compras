@@ -125,7 +125,7 @@ public class  MainActivity extends AppCompatActivity implements BottomNavigation
             presupuestoGastado.setTextColor(getResources().getColor(R.color.Verde));
         }
         else if (PresupuestoOriginal<=Gastadoint){
-            presupuestoGastado.setTextColor(getResources().getColor(R.color.Rojo));
+            presupuestoGastado.setTextColor(getResources().getColor(R.color.Amarillo));
             AlertaLimitePresupuesto();
         }
         System.out.println("Porcentaje: "+percent+" Prueba "+prueba+" ");

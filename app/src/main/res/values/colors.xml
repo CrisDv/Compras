@@ -12,5 +12,7 @@
     <color name="Verde">#49FE05</color>
     <color name="Rojo">#FF0000</color>
     <color name="Naranja">#FC8216</color>
+    <color name="Amarillo">#FFE400</color>
     <color name="black_overlay">#66000000</color>
+
 </resources>

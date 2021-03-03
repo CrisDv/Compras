@@ -25,10 +25,10 @@
                 android:id="@+id/TituloProducto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="serif"
                 android:text="TITULO DEL PRODUCTO"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="22dp" />
+                android:fontFamily="serif"
+                android:textColor="#000"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/PrecioProducto"
@@ -36,8 +36,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
                 android:text="PRECIO DEL PRODUCTO"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="15dp" />
+                android:textColor="#000"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,9 +51,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/redondito"
+                android:backgroundTint="#FF9800"
                 android:fontFamily="serif"
                 android:text="-"
-                 />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/CantidadProducto"
@@ -62,7 +64,7 @@
                 android:layout_weight="1"
                 android:fontFamily="serif"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000"
                 android:textSize="30dp" />
 
             <Button
@@ -70,9 +72,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/redondito"
+                android:backgroundTint="#FF9800"
                 android:fontFamily="serif"
                 android:text="+"
-                android:textColor="#000" />
+                android:textColor="#000"
+                android:textSize="30sp" />
 
 
         </LinearLayout>

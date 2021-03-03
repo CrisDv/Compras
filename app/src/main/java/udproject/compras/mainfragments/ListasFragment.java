@@ -44,5 +44,7 @@ public class ListasFragment extends Fragment implements RecyclerListaGuardadaAda
     public void onItemClick(int position) {
         Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_LONG).show();
         AdapterListaGuardada.Valores(position);
+
+
     }
 }

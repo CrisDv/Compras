@@ -147,4 +147,12 @@ public class Realtimepst {
 
 
     }
+
+    public void BorrarUsuario()
+    {
+        DatabaseReference dbreferebce=FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth mAuth=FirebaseAuth.getInstance();
+
+        dbreferebce.child("Users").child(mAuth.getUid()).removeValue();
+    }
 }

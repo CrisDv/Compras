@@ -1,6 +1,7 @@
 package udproject.compras.recycler;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import udproject.compras.Adapters.item_ListaGuardada;
 import udproject.compras.ConversionLetras;
 import udproject.compras.R;
 import udproject.compras.BD.LocalDB;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerListaGuardadaAdapter.ViewHolder> {
 
@@ -82,8 +85,15 @@ public class RecyclerListaGuardadaAdapter extends RecyclerView.Adapter<RecyclerL
         LocalDB localDB=new LocalDB(context);
         Toast.makeText(context, ItemListaGuardada.get(posicion).getIDLista(), Toast.LENGTH_LONG).show();
         String id=ItemListaGuardada.get(posicion).getIDLista();
+        String Pres=String.valueOf(ItemListaGuardada.get(posicion).getPresupuestoInicial());
         localDB.Productos(id);
         localDB.close();
+
+        SharedPreferences shared = context.getSharedPreferences("CREDENCIALES", MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+        editor.putString("IDlista", id);
+        editor.putString("Presupuesto", Pres);
+        editor.commit();
     }
 
     public  interface OnItemGuardadoListener

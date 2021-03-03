@@ -72,7 +72,7 @@ public class IngresarPresupuesto extends DialogFragment {
 
                             local.AgregarALista(Integer.parseInt(Valor));
 
-
+local.close();
                             Intent intent=new Intent(getContext(), MainActivity.class);
                             startActivity(intent);
 

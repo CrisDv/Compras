@@ -87,11 +87,8 @@ public class DetallesProductos extends AppCompatActivity {
 
         LocalDB localDB=new LocalDB(this);
         ArrayList<String> precios=localDB.PrecioProductoNombre(Titulo);
-        ArrayList<String> Almacenes=new ArrayList<>();
+        ArrayList<String> Almacenes=localDB.NombredeLista(Titulo);
 
-        for (int i=0;i<precios.size();i++){
-            Almacenes.add(localDB.NombredeLista(Titulo));
-        }
 
         Marca.setText(Titulo+" de acuerdo a tus listas");
         //input data
@@ -111,7 +108,8 @@ public class DetallesProductos extends AppCompatActivity {
 
         BarData data = new BarData(barDataSet);
         barChart.setData(data);
-
+        barChart.getDescription().setEnabled(false);
+        //barChart.setAccessibilityPaneTitle("");
         barChart.invalidate();
     }
 

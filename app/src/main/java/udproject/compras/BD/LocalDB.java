@@ -152,16 +152,17 @@ public class LocalDB extends SQLiteOpenHelper {
     }
 //CHART DETALLES DEL PRODUCTO
 
-    public String NombredeLista(String Nname)
+    public ArrayList<String> NombredeLista(String Nname)
     {
         SQLiteDatabase db=getReadableDatabase();
-        String Nombre="";
-        Cursor cursor=db.rawQuery("SELECT LG.Almacen FROM ListaGuardada LG JOIN Productos PR ON PR.Id_Lista=LG.Id_Lista WHERE PR.Name_Producto LIKE '"+Nname+"'", null);
+        ArrayList<String> Nombre=new ArrayList<>();
+        Cursor cursor=db.rawQuery("SELECT LG.Name_Lista FROM ListaGuardada LG JOIN Productos PR  WHERE PR.Name_Producto LIKE '%"+Nname+"%'", null);
 
         while ((cursor.moveToNext())){
-            Nombre=cursor.getString(0);
+            Nombre.add(cursor.getString(0));
         }
 db.close();
+
         return Nombre;
     }
 
@@ -296,8 +297,8 @@ db.close();
         int PrecioUni=Integer.parseInt(Precio);
         SQLiteDatabase db=getWritableDatabase();
 
-        db.execSQL("INSERT INTO Productos (Id_Producto, Id_Lista, Name_Producto, PrecioUnitario, Cantidad)" +
-                "VALUES ("+IDproducto+", '"+idLista+"', '"+Nombre+"', "+PrecioUni+", 1)");
+        db.execSQL("INSERT INTO Productos (Id_Producto, Id_Lista, Name_Producto, PrecioUnitario, Cantidad, Precio_Producto)" +
+                "VALUES ("+IDproducto+", '"+idLista+"', '"+Nombre+"', "+PrecioUni+", 1, "+PrecioUni+" )");
         db.close();
     }
 
@@ -344,8 +345,16 @@ db.close();
         else {
             Promedio=Presupuesto/numRegistros;
         }
+
         return Promedio;
     }
 
+    public void ActualizarPresupuesto(String IDLista, int Presupuesto){
+
+        SQLiteDatabase db=getWritableDatabase();
+
+        db.execSQL("UPDATE MiLista SET PresupuestoInicial="+Presupuesto+" WHERE Id_Lista='"+IDLista+"'; ");
+        db.close();
+    }
 
 }
